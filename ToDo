@@ -1,0 +1,29 @@
+Add colors to drone display <tick>
+Remove square brackets from drone display <tick>
+Eat targets when drone overlaps <tick>
+make logfile with coordinates 
+
+
+Logfile:
+    message from watchdog
+    process messages (errors, entry into a relevant area of code)
+    <time of day><process name><message><other>
+        to write to the logfile, each process must lock, write, flush, release lock
+
+watchdog:
+    monitor processes via signals
+    read from process file
+    send messages to logfile that it is alive
+
+Process File(Global file):
+        name of process and its PID
+        each process writes its name and PID to this file when it starts
+        to write to the process file, each process must lock, write, flush, release locks
+
+        Global File made <tick> 
+
+open in new terminal to view whats happening:
+tail -f watchdog_log.txt process_log.txt
+
+to view after the program
+cat watchdog_log.txt | less
