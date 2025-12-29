@@ -1,29 +1,9 @@
-Add colors to drone display <tick>
-Remove square brackets from drone display <tick>
-Eat targets when drone overlaps <tick>
-make logfile with coordinates 
+socketSERVER MODE:
+- Communication Server reads MY drone position from Blackboard (via fdComm_FromBB)
+- Communication Server writes CLIENT's position to Blackboard (via fdComm_ToBB) 
+- Blackboard treats client position as obstacle and sends repulsion force to Drone
 
-
-Logfile:
-    message from watchdog
-    process messages (errors, entry into a relevant area of code)
-    <time of day><process name><message><other>
-        to write to the logfile, each process must lock, write, flush, release lock
-
-watchdog:
-    monitor processes via signals
-    read from process file
-    send messages to logfile that it is alive
-
-Process File(Global file):
-        name of process and its PID
-        each process writes its name and PID to this file when it starts
-        to write to the process file, each process must lock, write, flush, release locks
-
-        Global File made <tick> 
-
-open in new terminal to view whats happening:
-tail -f watchdog_log.txt process_log.txt
-
-to view after the program
-cat watchdog_log.txt | less
+CLIENT MODE:
+- Communication Client reads MY drone position from Blackboard (via fdComm_FromBB)
+- Communication Client writes SERVER's position to Blackboard (via fdComm_ToBB)
+- Blackboard displays server position but NO repulsion on client side

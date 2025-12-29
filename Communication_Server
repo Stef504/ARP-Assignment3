@@ -1,0 +1,170 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
+#include <sys/socket.h>
+#include <netinet/in.h>
+#include <netdb.h>
+
+// Virtual coordinate system (top-left origin)
+typedef struct {
+    int x;
+    int y;
+} VirtualCoord;
+
+typedef struct {
+    int x;
+    int y;
+} LocalCoord;
+
+// Convert local to virtual (adjust if your coordinates differ)
+VirtualCoord local_to_virtual(LocalCoord local, int window_width, int window_height) {
+    VirtualCoord v;
+    v.x = local.x;
+    v.y = local.y;
+    // If your origin is different (e.g., bottom-left), adjust here:
+    // v.y = window_height - local.y;
+    return v;
+}
+
+// Convert virtual to local
+LocalCoord virtual_to_local(VirtualCoord virt, int window_width, int window_height) {
+    LocalCoord l;
+    l.x = virt.x;
+    l.y = virt.y;
+    // If your origin is different (e.g., bottom-left), adjust here:
+    // l.y = window_height - virt.y;
+    return l;
+}
+
+// Read a line from socket (string messages)
+int read_line(int sockfd, char *buffer, int max_len) {
+    int i = 0;
+    char c;
+    while (i < max_len - 1) {
+        int n = read(sockfd, &c, 1);
+        if (n <= 0) return -1;
+        if (c == '\n') break;
+        buffer[i++] = c;
+    }
+    buffer[i] = '\0';
+    return i;
+}
+
+// Write a line to socket
+int write_line(int sockfd, const char *message) {
+    int len = strlen(message);
+    char buffer[512];
+    snprintf(buffer, sizeof(buffer), "%s\n", message);
+    return write(sockfd, buffer, strlen(buffer));
+}
+
+// ============= SERVER COMMUNICATION PROCESS =============
+void communication_server(int listen_sockfd, int pipe_from_bb, int pipe_to_bb, 
+                          int window_width, int window_height) {
+    
+    printf("[COMM SERVER] Waiting for client connection...\n");
+    
+    // Accept connection
+    struct sockaddr_in cli_addr;
+    socklen_t clilen = sizeof(cli_addr);
+    int newsockfd = accept(listen_sockfd, (struct sockaddr *)&cli_addr, &clilen);
+    if (newsockfd < 0) {
+        perror("ERROR on accept");
+        exit(1);
+    }
+    
+    printf("[COMM SERVER] Client connected!\n");
+    
+    // PROTOCOL START
+    char buffer[256];
+    
+    // 1. Send "ok", wait for "ook"
+    write_line(newsockfd, "ok");
+    read_line(newsockfd, buffer, sizeof(buffer));
+    if (strcmp(buffer, "ook") != 0) {
+        fprintf(stderr, "Protocol error: expected 'ook'\n");
+        close(newsockfd);
+        return;
+    }
+    
+    // 2. Send "size w h", wait for "sok"
+    sprintf(buffer, "size %d %d", window_width, window_height);
+    write_line(newsockfd, buffer);
+    read_line(newsockfd, buffer, sizeof(buffer));
+    if (strcmp(buffer, "sok") != 0) {
+        fprintf(stderr, "Protocol error: expected 'sok'\n");
+        close(newsockfd);
+        return;
+    }
+    
+    printf("[COMM SERVER] Handshake complete. Entering main loop...\n");
+    
+    // 3. MAIN LOOP
+    int should_quit = 0;
+    while (!should_quit) {
+        
+        // Check if blackboard signals termination
+        // (You need to implement a way to check this - maybe read from pipe non-blocking)
+        // For now, assume we check a shared variable or signal
+        
+        // a) Send drone position
+        write_line(newsockfd, "drone");
+        
+        // Read MY drone position from blackboard via pipe
+        LocalCoord my_drone;
+        int n = read(pipe_from_bb, &my_drone, sizeof(LocalCoord));
+        if (n < 0) {
+            perror("Error reading from blackboard");
+            break;
+        }
+        
+        // Convert to virtual
+        VirtualCoord v_drone = local_to_virtual(my_drone, window_width, window_height);
+        
+        // Send drone x, y
+        sprintf(buffer, "%d %d", v_drone.x, v_drone.y);
+        write_line(newsockfd, buffer);
+        
+        // Wait for "dok"
+        read_line(newsockfd, buffer, sizeof(buffer));
+        if (strcmp(buffer, "dok") != 0) {
+            fprintf(stderr, "Protocol error: expected 'dok'\n");
+            break;
+        }
+        
+        // b) Receive obstacle (client's drone position)
+        write_line(newsockfd, "obst");
+        
+        // Wait for "x y"
+        read_line(newsockfd, buffer, sizeof(buffer));
+        VirtualCoord v_obstacle;
+        sscanf(buffer, "%d %d", &v_obstacle.x, &v_obstacle.y);
+        
+        // Send "pok"
+        write_line(newsockfd, "pok");
+        
+        // Convert to local coordinates
+        LocalCoord l_obstacle = virtual_to_local(v_obstacle, window_width, window_height);
+        
+        // Write to blackboard as obstacle
+        write(pipe_to_bb, &l_obstacle, sizeof(LocalCoord));
+        
+        // c) Check for quit signal (implement your termination detection)
+        // if (check_should_quit()) {
+        //     should_quit = 1;
+        // }
+        
+        usleep(50000); // 50ms delay between iterations
+    }
+    
+    // TERMINATION
+    write_line(newsockfd, "q");
+    read_line(newsockfd, buffer, sizeof(buffer));
+    if (strcmp(buffer, "qok") == 0) {
+        printf("[COMM SERVER] Clean shutdown\n");
+    }
+    
+    close(newsockfd);
+    close(listen_sockfd);
+}

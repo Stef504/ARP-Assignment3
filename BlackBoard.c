@@ -220,7 +220,7 @@ int main(int argc, char *argv[]) {
     #define EXEC_FAIL 127
     #define RUNTIME_ERROR 70
 
-    if (argc < 7) 
+    if (argc < 9) 
     {
         fprintf(stderr, "Usage: %s <fd>\n", argv[0]);
         LOG_CRITICAL("BlackBoard", "Insufficient arguments provided.");
@@ -237,13 +237,16 @@ int main(int argc, char *argv[]) {
     int fdIn_BB = open(path_bb, O_RDONLY | O_NONBLOCK);
     if (fdIn_BB == -1) { LOG_ERRNO("BlackBoard","Failed to open In_BB Pipe"); return OPEN_FAIL; }
     int fdRepul =atoi(argv[6]);
+    int fdComm_FromBB = atoi(argv[7]);
+    int fdComm_ToBB = atoi(argv[8]);
 
     struct timeval tv;
     int retval;
-    char strOb[100], strTa[100], strIn[100]; 
+    char strOb[100], strTa[100], strIn[100], strComm_ToBB[100]; 
     char sToBB[135],sFromBB[135],sIn[10],sRepul[40];
     char format_stringOb[100] = "%d,%d";
-    char format_stringTa[100] = "%d,%d";  
+    char format_stringTa[100] = "%d,%d"; 
+    float x_ToBB, y_ToBB; 
     
     float dx,dy;
     float distance;
@@ -253,6 +256,7 @@ int main(int argc, char *argv[]) {
     if (fdOb > maxfd) maxfd = fdOb;
     if (fdTa > maxfd) maxfd = fdTa;
     if (fdIn_BB > maxfd) maxfd = fdIn_BB;
+    if (fdComm_FromBB > maxfd) maxfd = fdComm_FromBB;
 
     // Persistent Coordinates (Initialize off-screen or valid default)
     // Removed single coordinates in favor of arrays
@@ -342,6 +346,7 @@ int main(int argc, char *argv[]) {
         FD_SET(fdOb, &readfds);
         FD_SET(fdTa, &readfds);
         FD_SET(fdIn_BB, &readfds);
+        FD_SET(fdComm_FromBB, &readfds);
 
         // Small timeout so loop stays responsive
         tv.tv_sec = 0;
@@ -453,6 +458,18 @@ int main(int argc, char *argv[]) {
                     LOG_ERROR("BlackBoard", "Target pipe closed unexpectedly");
                     running = false; }
             }
+            // Reading from communication pipe
+            if (FD_ISSET(fdComm_FromBB, &readfds)) {
+                ssize_t bytes = read(fdComm_FromBB, strComm_ToBB, sizeof(strComm_ToBB)-1);
+                if (bytes > 0) {
+                    strComm_ToBB[bytes] = '\0';
+                    sscanf(strComm_ToBB, "%f,%f", &x_ToBB, &y_ToBB);
+                    LOG_INFO("BlackBoard","Received communication command: %s", sIn);
+                } 
+                else { 
+                    LOG_ERROR("BlackBoard", "Communication pipe closed unexpectedly");
+                    running = false; } // Pipe closed
+                }
         }                
 
         char input_key= sIn[0];

@@ -5,7 +5,7 @@ CFLAGS = -Wall
 LIBS = -lncurses 
 MATH_ONLY = -lm
 
-all: main process_Drone BlackBoard process_In process_Ob process_Ta watchdog
+all: main process_Drone BlackBoard process_In process_Ob process_Ta watchdog 
 
 system_logger.o: system_logger.c
 	$(CC) $(CFLAGS) -c system_logger.c -o system_logger.o
@@ -31,5 +31,7 @@ process_Ta: process_Ta.c system_logger.o
 watchdog: watchdog.c system_logger.o
 	$(CC) $(CFLAGS) watchdog.c system_logger.o -o watchdog
 
+
+
 clean:
-	rm main process_Drone BlackBoard process_In process_Ob process_Ta watchdog system_logger.o					
+	rm main process_Drone BlackBoard process_In process_Ob process_Ta watchdog system_logger.o				
