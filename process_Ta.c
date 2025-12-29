@@ -120,6 +120,7 @@ int main(int argc, char *argv[])
     Parameter_File();
     if (argc < 2) {
         fprintf(stderr, "Usage: %s <fd>\n", argv[0]);
+        LOG_CRITICAL("Targets", "Insufficient arguments provided.");
         exit(USAGE_ERROR);
     }
     
@@ -151,6 +152,7 @@ int main(int argc, char *argv[])
             last_target_ms = now_ms;
             sprintf(buffer, "%d,%d", x_coord_Ta, y_coord_Ta);
             write(fdTa, buffer, strlen(buffer)+1);
+            LOG_INFO("Targets", "Generated new target at (%d, %d)", x_coord_Ta, y_coord_Ta);
         }
         usleep(100000); // Sleep 100ms to avoid busy-waiting
     }

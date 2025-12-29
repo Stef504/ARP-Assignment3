@@ -121,6 +121,7 @@ int main(int argc, char *argv[])
 
     if (argc < 2) {
         fprintf(stderr, "Usage: %s <fd>\n", argv[0]);
+        LOG_CRITICAL("Obstacles", "Insufficient arguments provided.");
         exit(USAGE_ERROR);
     }
 
@@ -153,6 +154,7 @@ int main(int argc, char *argv[])
             last_obstacle_ms = now_ms;
             sprintf(buffer, "%d,%d", x_coord_Ob, y_coord_Ob);
             write(fdOb, buffer, strlen(buffer)+1);
+            LOG_INFO("Obstacles", "Generated new obstacle at (%d, %d)", x_coord_Ob, y_coord_Ob);
         }
         usleep(100000); // Sleep 100ms to avoid busy-waiting
     }

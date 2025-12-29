@@ -21,7 +21,7 @@ void logger_close(void);
 void logger_log(LogLevel level, const char* process_name, const char* file, 
                 int line, const char* function, const char* format, ...);
 
-// Macros to auto-fill file/line/function details
+// Macros to auto-fill file/line/function details/message
 #define LOG_INFO(process, ...) \
     logger_log(LOG_INFO, process, __FILE__, __LINE__, __func__, __VA_ARGS__)
 

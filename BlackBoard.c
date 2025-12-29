@@ -223,6 +223,7 @@ int main(int argc, char *argv[]) {
     if (argc < 7) 
     {
         fprintf(stderr, "Usage: %s <fd>\n", argv[0]);
+        LOG_CRITICAL("BlackBoard", "Insufficient arguments provided.");
         endwin();
         exit(USAGE_ERROR);
     }

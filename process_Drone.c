@@ -184,6 +184,7 @@ int main(int argc, char *argv[])
 
     if (argc < 5) {
         fprintf(stderr, "Usage: %s <fd>\n", argv[0]);
+        LOG_CRITICAL("Drone", "Insufficient arguments provided.");
         exit(USAGE_ERROR);
     }
 
@@ -263,7 +264,7 @@ int main(int argc, char *argv[])
                 if (bytes > 0) {
                     strIn[bytes] = '\0';
                     sscanf(strIn, "%s", sIn);
-                    LOG_INFO("Drone", "Received key inputs");
+                    LOG_INFO("Drone", "Received key input: %s", sIn);
                 } else { 
                     LOG_ERROR("Drone", "Input pipe closed unexpectedly");
                     running = false; } // Pipe closed
