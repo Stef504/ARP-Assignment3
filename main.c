@@ -12,6 +12,9 @@
 #include <sys/file.h>
 #include "logger.h" 
 #include "logger_custom.h"
+#include <sys/types.h>   // Required for system data types
+#include <sys/socket.h>  // Required for socket(), bind(), listen()
+#include <netinet/in.h>  // Required for sockaddr_in, AF_INET, INADDR_ANY
 
 // Global variables and parameters
 int window_width ;
@@ -235,8 +238,11 @@ int main()
         
         char fdComm_FromBB_str[10];
         snprintf(fdComm_FromBB_str,sizeof(fdComm_FromBB_str),"%d",fdComm_FromBB[1]);
+
+        char operation[10];
+        snprintf(operation, sizeof(operation), "%d", mode);
         
-        execlp("konsole", "konsole", "-e", "./BlackBoard",fdToBB_str,fdFromBB_str,fdOb_str,fdTa_str,"./pipe_blackboard_input",fdRepul_str,fdComm_FromBB_str ,fdComm_ToBB_str, (char *)NULL); // launch another process if condition met
+        execlp("konsole", "konsole", "-e", "./BlackBoard",fdToBB_str,fdFromBB_str,fdOb_str,fdTa_str,"./pipe_blackboard_input",fdRepul_str,fdComm_FromBB_str ,fdComm_ToBB_str,operation, (char *)NULL); // launch another process if condition met
        
         // If exec fails
         LOG_ERRNO("Master,BB fork","exec failed");
@@ -326,11 +332,15 @@ int main()
     
     }
 
+    pid_t Ob;
+    pid_t Ta;
+    pid_t WD;
+    pid_t Comm;
 
     if (mode == 1){
         
     //.....Obstacle.....
-    pid_t Ob=fork();
+    Ob=fork();
 
     if (Ob < 0)
     {
@@ -357,7 +367,7 @@ int main()
 
 
     //.....Targets.....
-    pid_t Ta=fork();
+    Ta=fork();
 
     if (Ta < 0)
     {
@@ -389,7 +399,7 @@ int main()
     }
 
     //.....Watchdog.....
-    pid_t WD = fork();
+    WD = fork();
 
      if (WD < 0)
     {
@@ -421,18 +431,25 @@ int main()
             printf("Process CS: PID = %d\n", getpid()); //getpid gets the file id
 
             //close comm_ToBB write end
-            close(fdComm_ToBB[1]);  
+            close(fdComm_ToBB[0]);  
 
             //close comm_FromBB read end
-            close(fdComm_FromBB[0]);
+            close(fdComm_FromBB[1]);
             
             char fdComm_ToBB_str[10];
-            snprintf(fdComm_ToBB_str,sizeof(fdComm_ToBB_str),"%d",fdComm_ToBB[0]);
+            snprintf(fdComm_ToBB_str,sizeof(fdComm_ToBB_str),"%d",fdComm_ToBB[1]);
             
             char fdComm_FromBB_str[10];
-            snprintf(fdComm_FromBB_str,sizeof(fdComm_FromBB_str),"%d",fdComm_FromBB[1]);
+            snprintf(fdComm_FromBB_str,sizeof(fdComm_FromBB_str),"%d",fdComm_FromBB[0]);
+
+            // 3. CONVERT WINDOW SIZES TO STRINGS (Crucial Fix!)
+            char width_str[10];
+            snprintf(width_str, sizeof(width_str), "%d", window_width);
+
+            char height_str[10];
+            snprintf(height_str, sizeof(height_str), "%d", window_height);
             
-            execlp("./Communication_Server", "./Communication_Server",fdComm_ToBB_str,fdComm_FromBB_str,window_width,window_height); // launch another process if condition met
+            execlp("./Communication_Server", "./Communication_Server",fdComm_ToBB_str,fdComm_FromBB_str,width_str,height_str, (char*)NULL); // launch another process if condition met
         
             // If exec fails
             LOG_ERRNO("Master,Dr fork","exec failed");
@@ -445,7 +462,7 @@ int main()
     else if (mode == 3){
         
         //.....Communication Client.....
-        pid_t Comm=fork();
+        Comm=fork();
 
         if (Comm < 0)
         {
@@ -458,7 +475,7 @@ int main()
             // Child process
             printf("Process CC: PID = %d\n", getpid()); //getpid gets the file id
 
-        //close comm_ToBB write end
+            //close comm_ToBB write end
             close(fdComm_ToBB[1]);  
 
             //close comm_FromBB read end
@@ -470,7 +487,7 @@ int main()
             char fdComm_FromBB_str[10];
             snprintf(fdComm_FromBB_str,sizeof(fdComm_FromBB_str),"%d",fdComm_FromBB[1]);
             
-            execlp("./Communication_Client", "./Communication_Client",hostname, portno, fdComm_FromBB[0], fdComm_ToBB[1]) // launch another process if condition met
+            execlp("./Communication_Client", "./Communication_Client",hostname, portno, fdComm_ToBB_str, fdComm_ToBB_str,(char *)NULL); // launch another process if condition met
         
             // If exec fails
             LOG_ERRNO("Master,Dr fork","exec failed");

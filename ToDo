@@ -7,3 +7,29 @@ CLIENT MODE:
 - Communication Client reads MY drone position from Blackboard (via fdComm_FromBB)
 - Communication Client writes SERVER's position to Blackboard (via fdComm_ToBB)
 - Blackboard displays server position but NO repulsion on client side
+
+Mode 1:
+Drone → fdToBB → BlackBoard (reads drone position)
+BlackBoard → fdFromBB → Drone (sends position back)
+BlackBoard → fdRepul → Drone (sends repulsion forces)
+Obstacle Generator → fdOb → BlackBoard (obstacle positions)
+Target Generator → fdTa → BlackBoard (target positions)
+
+Mode 2:
+Drone → fdToBB → BlackBoard (reads drone position)
+BlackBoard → fdComm_FromBB → Communication Server (sends MY drone position)
+Communication Server → fdComm_ToBB → BlackBoard (receives CLIENT's drone position as obstacle)
+BlackBoard → fdRepul → Drone (applies repulsion from client's position)
+
+Mode 3:
+Drone → fdToBB → BlackBoard (reads MY drone position)
+BlackBoard → fdComm_FromBB → Communication Client (sends MY drone position)
+Communication Client → fdComm_ToBB → BlackBoard (receives SERVER's drone for display only)
+BlackBoard DOES NOT send repulsion in client mode (client IS the disturbance)
+
+Virtual Coodinate system: 
+SERVER SIDE:
+BlackBoard (local coords) → Communication Server → [converts to virtual] → Network
+
+CLIENT SIDE:
+Network → [converts to virtual] → Communication Client → BlackBoard (local coords)

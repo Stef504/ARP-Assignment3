@@ -47,6 +47,9 @@ Point targets[MAX_ITEMS];
 int tar_head = 0;
 int tar_count = 0;
 
+Point remote_drone={-1,-1};
+bool remote_drone_valid = false;
+
 // sig_atomic_t ensures atomic access during signal handling
 volatile sig_atomic_t health_check = 0;
 volatile sig_atomic_t should_exit = 0;
@@ -220,7 +223,7 @@ int main(int argc, char *argv[]) {
     #define EXEC_FAIL 127
     #define RUNTIME_ERROR 70
 
-    if (argc < 9) 
+    if (argc < 10) 
     {
         fprintf(stderr, "Usage: %s <fd>\n", argv[0]);
         LOG_CRITICAL("BlackBoard", "Insufficient arguments provided.");
@@ -239,6 +242,7 @@ int main(int argc, char *argv[]) {
     int fdRepul =atoi(argv[6]);
     int fdComm_FromBB = atoi(argv[7]);
     int fdComm_ToBB = atoi(argv[8]);
+    int mode = atoi(argv[9]);       //1,2,3
 
     struct timeval tv;
     int retval;
@@ -247,6 +251,7 @@ int main(int argc, char *argv[]) {
     char format_stringOb[100] = "%d,%d";
     char format_stringTa[100] = "%d,%d"; 
     float x_ToBB, y_ToBB; 
+
     
     float dx,dy;
     float distance;
@@ -256,7 +261,7 @@ int main(int argc, char *argv[]) {
     if (fdOb > maxfd) maxfd = fdOb;
     if (fdTa > maxfd) maxfd = fdTa;
     if (fdIn_BB > maxfd) maxfd = fdIn_BB;
-    if (fdComm_FromBB > maxfd) maxfd = fdComm_FromBB;
+    if (mode != 1 && fdComm_ToBB > maxfd) maxfd = fdComm_ToBB;
 
     // Persistent Coordinates (Initialize off-screen or valid default)
     // Removed single coordinates in favor of arrays
@@ -343,10 +348,19 @@ int main(int argc, char *argv[]) {
 
         FD_ZERO(&readfds);
         FD_SET(fdToBB, &readfds);
-        FD_SET(fdOb, &readfds);
-        FD_SET(fdTa, &readfds);
         FD_SET(fdIn_BB, &readfds);
-        FD_SET(fdComm_FromBB, &readfds);
+        
+        
+        // Only monitor obstacle/target pipes in standalone mode
+        if (mode == 1) {
+            FD_SET(fdOb, &readfds);
+            FD_SET(fdTa, &readfds);
+        }
+
+        // Monitor communication pipe in networked modes
+        if (mode != 1) {
+            FD_SET(fdComm_ToBB, &readfds);
+        }
 
         // Small timeout so loop stays responsive
         tv.tv_sec = 0;
@@ -380,7 +394,15 @@ int main(int argc, char *argv[]) {
                     else {
                         sToBB[bytes] = '\0';
                         sscanf(sToBB, "%f,%f", &x_curr, &y_curr);
-                        LOG_INFO("BlackBoard","Received drone coordinates:");
+                        LOG_INFO("BlackBoard","Received drone coordinates");
+
+                       //In networked mode, send MY drone position to communication process
+                        if (mode != 1) {
+                            char comm_msg[100];
+                            snprintf(comm_msg, sizeof(comm_msg), "%.0f,%.0f", x_curr, y_curr);
+                            write(fdComm_FromBB, comm_msg, strlen(comm_msg) + 1);
+                            LOG_INFO("BlackBoard","Sent drone coordinates to Communication Client");
+                        } 
                     }   
                 }
                 else { 
@@ -390,7 +412,7 @@ int main(int argc, char *argv[]) {
             
 
             // Receiving coordinates from obstacle pipe
-            if (FD_ISSET(fdOb, &readfds)) {
+            if (mode == 1 && FD_ISSET(fdOb, &readfds)) {
                 ssize_t bytes = read(fdOb, strOb, sizeof(strOb)-1);
                 if (bytes > 0) {
                     strOb[bytes] = '\0';
@@ -422,7 +444,7 @@ int main(int argc, char *argv[]) {
             }
 
             // Reading coordinates from target pipe
-            if (FD_ISSET(fdTa, &readfds)) {
+            if (mode ==1 && FD_ISSET(fdTa, &readfds)) {
                 ssize_t bytes = read(fdTa, strTa, sizeof(strTa)-1);
                 if (bytes > 0) {
                     strTa[bytes] = '\0';
@@ -458,12 +480,31 @@ int main(int argc, char *argv[]) {
                     LOG_ERROR("BlackBoard", "Target pipe closed unexpectedly");
                     running = false; }
             }
+            
             // Reading from communication pipe
-            if (FD_ISSET(fdComm_FromBB, &readfds)) {
-                ssize_t bytes = read(fdComm_FromBB, strComm_ToBB, sizeof(strComm_ToBB)-1);
+            if (FD_ISSET(fdComm_ToBB, &readfds)) {
+                ssize_t bytes = read(fdComm_ToBB, strComm_ToBB, sizeof(strComm_ToBB)-1);
                 if (bytes > 0) {
                     strComm_ToBB[bytes] = '\0';
-                    sscanf(strComm_ToBB, "%f,%f", &x_ToBB, &y_ToBB);
+
+                    if (sscanf(strComm_ToBB, "%f,%f", &x_ToBB, &y_ToBB) == 2){
+                        remote_drone.x = (int)x_ToBB;
+                        remote_drone.y = (int)y_ToBB;
+                        remote_drone_valid = true;
+
+                        LOG_INFO("BlackBoard","Received remote drone coordinates");
+
+                        // In SERVER mode, treat client drone position as obstacle
+                        if (mode == 2){
+                            // Store in array
+                            obstacles[obs_head].x = remote_drone.x;
+                            obstacles[obs_head].y = remote_drone.y;
+                            obs_head = (obs_head + 1) % MAX_ITEMS;
+                            if (obs_count < MAX_ITEMS) obs_count++;
+
+                            LOG_INFO("BlackBoard","Treated remote drone as obstacle");
+                        }
+                    }
                     LOG_INFO("BlackBoard","Received communication command: %s", sIn);
                 } 
                 else { 
@@ -677,11 +718,35 @@ int main(int argc, char *argv[]) {
              }
         }
 
-        // Draw the drone 
+        if (mode != 1 && remote_drone_valid) {
+
+            if (remote_drone.x < 0 || remote_drone.x >= ww ||
+                remote_drone.y < 0 || remote_drone.y >= wh) {
+            // Remote drone is out of bounds, skip drawing
+            // Draw remote drone as 'C'
+
+                if (mode ==2){
+                    wattron(win, COLOR_PAIR(3));
+                    mvwprintw(win, remote_drone.y, remote_drone.x, "C");
+                    wattroff(win, COLOR_PAIR(3));
+                }
+                else {
+                    // Client sees server drone (display only, different color)
+                    wattron(win, COLOR_PAIR(1) | A_BOLD);
+                    mvwprintw(win, remote_drone.y, remote_drone.x, "S");
+                    wattroff(win, COLOR_PAIR(1) | A_BOLD);
+                }
+            }
+            
+        }
+
+
+        // Draw the drone , mode 1
         wattron(win, COLOR_PAIR(1));
         mvwprintw(win, (int)y_curr, (int)x_curr, "+");
         wattroff(win, COLOR_PAIR(1));
         wrefresh(win);
+
 
         
         // Checking alive signal
@@ -700,6 +765,11 @@ int main(int argc, char *argv[]) {
     close(fdTa);
     close(fdRepul);
     close(fdIn_BB);
+
+    if (mode != 1) {
+        close(fdComm_ToBB);
+        close(fdComm_FromBB);
+    }
 
     delwin(win);
     endwin();
