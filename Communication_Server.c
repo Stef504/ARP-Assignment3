@@ -23,10 +23,15 @@
 #define VIRTUAL_ALFA 0.0 // Angle in radians
 
 volatile sig_atomic_t terminate_flag = 0;
+pid_t watchdog_pid = -1;
 
 void handle_signal(int sig) {
     if (sig == SIGTERM || sig == SIGINT) {
         terminate_flag = 1;
+    } else if (sig == SIGUSR1) {
+        if (watchdog_pid > 0) {
+            kill(watchdog_pid, SIGUSR2);
+        }
     }
 }
 
@@ -98,27 +103,33 @@ int main(int argc, char *argv[]) {
     int fdComm_ToBB = atoi(argv[3]);    // Write CLIENT's position to BB
     int window_width = atoi(argv[4]);
     int window_height = atoi(argv[5]);
+
+    logger_init("system.log");
+    log_process("CommServer", getpid());
+    watchdog_pid = get_pid_by_name("Watchdog");
     
-    printf("[COMM SERVER] Window size: %dx%d\n", window_width, window_height);
-    printf("[COMM SERVER] Waiting for client connection...\n");
+    LOG_INFO("CommServer", "Window size: %dx%d", window_width, window_height);
+    LOG_INFO("CommServer", "Waiting for client connection...");
     
     // Accept connection
     struct sockaddr_in cli_addr;
     socklen_t clilen = sizeof(cli_addr);
     int newsockfd = accept(listen_sockfd, (struct sockaddr *)&cli_addr, &clilen);
     if (newsockfd < 0) {
-        perror("ERROR on accept");
+        LOG_ERRNO("CommServer", "ERROR on accept");
         return 1;
     }
     
-    printf("[COMM SERVER] Client connected!\n");
+    LOG_INFO("CommServer", "Client connected!");
     
     // Setup signal handlers
     struct sigaction sa;
     memset(&sa, 0, sizeof(sa));
     sa.sa_handler = handle_signal;
+    sa.sa_flags = SA_RESTART;
     sigaction(SIGTERM, &sa, NULL);
     sigaction(SIGINT, &sa, NULL);
+    sigaction(SIGUSR1, &sa, NULL);
 
     char buffer[256];
     
@@ -126,25 +137,25 @@ int main(int argc, char *argv[]) {
     // 1. Send "ok", wait for "ook"
     write_line(newsockfd, "ServerConnected");
     if (read_line(newsockfd, buffer, sizeof(buffer)) < 0 || strcmp(buffer, "ClientConnected") != 0) {
-        fprintf(stderr, "Protocol error: expected 'ClientConnected', got '%s'\n", buffer);
+        LOG_ERROR("CommServer", "Protocol error: expected 'ClientConnected', got '%s'", buffer);
         close(newsockfd);
         return 1;
     }
-    printf("[COMM SERVER] Received connection acknowledgment from client\n");
+    LOG_INFO("CommServer", "Received connection acknowledgment from client");
     
     // 2. Send "size w h", wait for "sok"
     snprintf(buffer, sizeof(buffer), "size %d %d", window_width, window_height);
     write_line(newsockfd, buffer);
-    printf("[COMM SERVER] Sent: %s\n", buffer);
+    LOG_INFO("CommServer", "Sent: %s", buffer);
     
     if (read_line(newsockfd, buffer, sizeof(buffer)) < 0 || strcmp(buffer, "w_h") != 0) {
-        fprintf(stderr, "Protocol error: expected 'w_h', got '%s'\n", buffer);
+        LOG_ERROR("CommServer", "Protocol error: expected 'w_h', got '%s'", buffer);
         close(newsockfd);
         return 1;
     }
-    printf("[COMM SERVER] Received window size acknowledgment from client\n");
+    LOG_INFO("CommServer", "Received window size acknowledgment from client");
     
-    printf("[COMM SERVER] Handshake complete. Entering main loop...\n");
+    LOG_INFO("CommServer", "Handshake complete. Entering main loop...");
     
     // MAIN LOOP
     bool running = true;
@@ -155,7 +166,7 @@ int main(int argc, char *argv[]) {
         
         // a) Send "drone" command
         if (write_line(newsockfd, "drone") < 0) {
-            fprintf(stderr, "Write error on 'drone'\n");
+            LOG_ERROR("CommServer", "Write error on 'drone'");
             break;
         }
         
@@ -167,7 +178,7 @@ int main(int argc, char *argv[]) {
                 usleep(10000);
                 continue;
             }
-            fprintf(stderr, "Failed to read from BlackBoard\n");
+            LOG_ERROR("CommServer", "Failed to read from BlackBoard");
             break;
         }
         my_pos[bytes] = '\0';
@@ -175,7 +186,7 @@ int main(int argc, char *argv[]) {
         // Parse local coordinates (format: "x.x,y.y")
         Coord local;
         if (sscanf(my_pos, "%f,%f", &local.x, &local.y) != 2) {
-            fprintf(stderr, "Invalid format from BlackBoard: '%s'\n", my_pos);
+            LOG_ERROR("CommServer", "Invalid format from BlackBoard: '%s'", my_pos);
             continue;
         }
         
@@ -185,37 +196,37 @@ int main(int argc, char *argv[]) {
         // Send position in virtual coordinates (format: "x.x y.y" - note space, not comma)
         snprintf(buffer, sizeof(buffer), "%.1f %.1f", virtual.x, virtual.y);
         if (write_line(newsockfd, buffer) < 0) {
-            fprintf(stderr, "Write error on position\n");
+            LOG_ERROR("CommServer", "Write error on position");
             break;
         }
         
         if (loop_count % 20 == 0) {
-            printf("[COMM SERVER] Sent drone pos: local(%.1f,%.1f) -> virtual(%.1f,%.1f)\n",
+            LOG_INFO("CommServer", "Sent drone pos: local(%.1f,%.1f) -> virtual(%.1f,%.1f)",
                    local.x, local.y, virtual.x, virtual.y);
         }
         
         // Wait for "drone_ok"
         if (read_line(newsockfd, buffer, sizeof(buffer)) < 0 || strcmp(buffer, "drone_ok") != 0) {
-            fprintf(stderr, "Protocol error: expected 'drone_ok', got '%s'\n", buffer);
+            LOG_ERROR("CommServer", "Protocol error: expected 'drone_ok', got '%s'", buffer);
             break;
         }
         
         // b) Send "obstacle_ok" command
         if (write_line(newsockfd, "obstacle_ok") < 0) {
-            fprintf(stderr, "Write error on 'obstacle_ok'\n");
+            LOG_ERROR("CommServer", "Write error on 'obstacle_ok'");
             break;
         }
         
         // Wait for client position in virtual coordinates (format: "x.x y.y")
         if (read_line(newsockfd, buffer, sizeof(buffer)) < 0) {
-            fprintf(stderr, "Read error on client position\n");
+            LOG_ERROR("CommServer", "Read error on client position");
             break;
         }
         
         // Parse virtual coordinates
         Coord client_virtual;
         if (sscanf(buffer, "%f %f", &client_virtual.x, &client_virtual.y) != 2) {
-            fprintf(stderr, "Invalid client position format: '%s'\n", buffer);
+            LOG_ERROR("CommServer", "Invalid client position format: '%s'", buffer);
             // Send pok anyway to keep protocol in sync
             write_line(newsockfd, "position_ok");
             continue;
@@ -226,7 +237,7 @@ int main(int argc, char *argv[]) {
         
         // Send "position_ok" acknowledgement
         if (write_line(newsockfd, "position_ok") < 0) {
-            fprintf(stderr, "Write error on 'position_ok'\n");
+            LOG_ERROR("CommServer", "Write error on 'position_ok'");
             break;
         }
         
@@ -236,7 +247,7 @@ int main(int argc, char *argv[]) {
         write(fdComm_ToBB, client_pos_str, strlen(client_pos_str) + 1);
         
         if (loop_count % 20 == 0) {
-            printf("[COMM SERVER] Received client: virtual(%.1f,%.1f) -> local(%.1f,%.1f)\n",
+            LOG_INFO("CommServer", "Received client: virtual(%.1f,%.1f) -> local(%.1f,%.1f)",
                    client_virtual.x, client_virtual.y, client_local.x, client_local.y);
         }
         
@@ -245,17 +256,17 @@ int main(int argc, char *argv[]) {
         
         // Check for quit signal from BlackBoard (via SIGTERM or pipe close)
         if (terminate_flag) {
-            printf("[COMM SERVER] Termination signal received.\n");
+            LOG_INFO("CommServer", "Termination signal received.");
             break;
         }
     }
     
     // TERMINATION
-    printf("[COMM SERVER] Sending quit signal\n");
+    LOG_INFO("CommServer", "Sending quit signal");
     write_line(newsockfd, "quit");
     read_line(newsockfd, buffer, sizeof(buffer));
     if (strcmp(buffer, "quit_ok") == 0) {
-        printf("[COMM SERVER] Clean shutdown\n");
+        LOG_INFO("CommServer", "Clean shutdown");
     }
     
     close(newsockfd);
@@ -263,5 +274,6 @@ int main(int argc, char *argv[]) {
     close(fdComm_FromBB);
     close(fdComm_ToBB);
     
+    logger_close();
     return 0;
 }

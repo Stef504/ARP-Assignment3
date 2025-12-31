@@ -1,1 +1,3 @@
-[2025-12-31 13:21:46] [PID:26640] [INFO] [BlackBoard] BlackBoard.c:173 (main) - Starting BlackBoard Process (PID=26640)
+[2025-12-31 16:03:15] [PID:43091] [INFO] [Input] process_In.c:53 (main) - Starting Input Process (PID=43091)
+[2025-12-31 16:03:24] [PID:43079] [WARNING] [Drone] process_Drone.c:175 (main) - Could not find Watchdog! Exiting.
+

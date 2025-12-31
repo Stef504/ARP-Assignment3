@@ -1,4 +1,5 @@
-Process: Master | PID: 26516
-Process: Drone | PID: 26614
-Process: Input | PID: 26639
-Process: BlackBoard | PID: 26640
+Process: Master | PID: 43008
+Process: Drone | PID: 43079
+Process: CommServer | PID: 43080
+Process: BlackBoard | PID: 43092
+Process: Input | PID: 43091
