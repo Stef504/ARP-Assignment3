@@ -70,7 +70,7 @@ int main()
     char *hostname;
     int mode_setup = false; // Default to true to ask for mode
 
-    if (!mode_setup) {
+
         // ASK MODE BEFORE FORKING
         printf("Select mode:\n");
         printf("1. Standalone (normal assignment 2)\n");
@@ -82,12 +82,7 @@ int main()
         if (mode < 1 || mode > 3) {
             printf("Invalid choice. Exiting.\n");
         }
-
-        if (mode == 1 || mode == 2 || mode == 3) {
-            mode_setup = true;
-        }
-        return 0;
-    } 
+   
     
     Parameter_File();
     
