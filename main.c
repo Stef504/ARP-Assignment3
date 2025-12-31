@@ -1,3 +1,4 @@
+#define _POSIX_C_SOURCE 200809L
 #include <stdio.h>
 #include <string.h> 
 #include <fcntl.h> 
@@ -68,8 +69,6 @@ int main()
     int sockfd = -1;  // For client/server socket
     int portno;
     char *hostname;
-    int mode_setup = false; // Default to true to ask for mode
-
 
         // ASK MODE BEFORE FORKING
         printf("Select mode:\n");

@@ -1,3 +1,4 @@
+#define _POSIX_C_SOURCE 200809L
 #include <stdio.h>
 #include <string.h> 
 #include <fcntl.h> 
@@ -5,6 +6,7 @@
 #include <sys/types.h> 
 #include <unistd.h> 
 #include <stdlib.h>
+#define M_SQRT1_2 0.70710678118
 #define _XOPEN_SOURCE_EXTENDED
 #include <locale.h>
 #include <ncurses.h>

@@ -6,6 +6,16 @@
 #include <netinet/in.h>
 #include <stdbool.h>
 #include <errno.h>
+#include <math.h>
+
+#ifndef M_PI
+#define M_PI 3.14159265358979323846
+#endif
+
+// Transformation parameters
+#define VIRTUAL_X0 0.0
+#define VIRTUAL_Y0 0.0
+#define VIRTUAL_ALFA 0.0 // Angle in radians
 
 // Virtual coordinate conversion functions
 typedef struct {
@@ -14,22 +24,32 @@ typedef struct {
 } Coord;
 
 // Convert local to virtual (standard: top-left origin)
+// Formula:
+// x1 = x0 + x cos(alfa) - y sin(alfa)
+// y1 = y0 + x sin(alfa) + y cos(alfa)
 Coord local_to_virtual(Coord local, int window_width, int window_height) {
     Coord v;
-    v.x = local.x;
-    v.y = local.y;
-    // If your ncurses origin is different (e.g., bottom-left), adjust:
-    // v.y = window_height - local.y;
+    float x = local.x;
+    float y = local.y;
+    
+    v.x = VIRTUAL_X0 + x * cos(VIRTUAL_ALFA) - y * sin(VIRTUAL_ALFA);
+    v.y = VIRTUAL_Y0 + x * sin(VIRTUAL_ALFA) + y * cos(VIRTUAL_ALFA);
+    
     return v;
 }
 
 // Convert virtual to local
+// Inverse Formula:
+// x = (x1 - x0) cos(alfa) + (y1 - y0) sin(alfa)
+// y = -(x1 - x0) sin(alfa) + (y1 - y0) cos(alfa)
 Coord virtual_to_local(Coord virt, int window_width, int window_height) {
     Coord l;
-    l.x = virt.x;
-    l.y = virt.y;
-    // If your ncurses origin is different (e.g., bottom-left), adjust:
-    // l.y = window_height - virt.y;
+    float dx = virt.x - VIRTUAL_X0;
+    float dy = virt.y - VIRTUAL_Y0;
+    
+    l.x = dx * cos(VIRTUAL_ALFA) + dy * sin(VIRTUAL_ALFA);
+    l.y = -dx * sin(VIRTUAL_ALFA) + dy * cos(VIRTUAL_ALFA);
+    
     return l;
 }
 

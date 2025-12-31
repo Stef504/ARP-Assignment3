@@ -32,10 +32,10 @@ watchdog: watchdog.c system_logger.o
 	$(CC) $(CFLAGS) watchdog.c system_logger.o -o watchdog
 
 Communication_Server: Communication_Server.c system_logger.o
-	$(CC) $(CFLAGS) Communication_Server.c system_logger.o -o Communication_Server
+	$(CC) $(CFLAGS) Communication_Server.c system_logger.o -o Communication_Server $(MATH_ONLY)
 
 Communication_Client: Communication_Client.c system_logger.o
-	$(CC) $(CFLAGS) Communication_Client.c system_logger.o -o Communication_Client 
+	$(CC) $(CFLAGS) Communication_Client.c system_logger.o -o Communication_Client $(MATH_ONLY) 
 
 
 
