@@ -1,7 +1,4 @@
-Process: Master | PID: 1526
-Process: Watchdog | PID: 1570
-Process: Obstacles | PID: 1568
-Process: Drone | PID: 1567
-Process: Targets | PID: 1569
-Process: Input | PID: 1586
-Process: BlackBoard | PID: 1585
+Process: Master | PID: 26516
+Process: Drone | PID: 26614
+Process: Input | PID: 26639
+Process: BlackBoard | PID: 26640

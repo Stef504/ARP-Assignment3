@@ -1,4 +1,5 @@
 #define _POSIX_C_SOURCE 200809L
+#define _DEFAULT_SOURCE
 #include <stdio.h>
 #include <string.h> 
 #include <fcntl.h> 
@@ -93,7 +94,7 @@ int main()
         // Setup server socket (but don't accept yet)
         sockfd = socket(AF_INET, SOCK_STREAM, 0);
         struct sockaddr_in serv_addr;
-        bzero(&serv_addr, sizeof(serv_addr));
+        memset(&serv_addr, 0, sizeof(serv_addr));
         serv_addr.sin_family = AF_INET;
         serv_addr.sin_addr.s_addr = INADDR_ANY;
         serv_addr.sin_port = htons(portno);
@@ -442,8 +443,13 @@ int main()
 
             char height_str[10];
             snprintf(height_str, sizeof(height_str), "%d", window_height);
+
+            // Convert sockfd to string
+            char sockfd_str[10];
+            snprintf(sockfd_str, sizeof(sockfd_str), "%d", sockfd);
             
-            execlp("./Communication_Server", "./Communication_Server",fdComm_ToBB_str,fdComm_FromBB_str,width_str,height_str, (char*)NULL); // launch another process if condition met
+            // Corrected arguments: sockfd, FromBB (Read), ToBB (Write), width, height
+            execlp("./Communication_Server", "./Communication_Server", sockfd_str, fdComm_FromBB_str, fdComm_ToBB_str, width_str, height_str, (char*)NULL);
         
             // If exec fails
             LOG_ERRNO("Master,Dr fork","exec failed");
@@ -469,19 +475,23 @@ int main()
             // Child process
             printf("Process CC: PID = %d\n", getpid()); //getpid gets the file id
 
-            //close comm_ToBB write end
-            close(fdComm_ToBB[1]);  
+            //close comm_ToBB read end (we write to it)
+            close(fdComm_ToBB[0]);  
 
-            //close comm_FromBB read end
-            close(fdComm_FromBB[0]);
+            //close comm_FromBB write end (we read from it)
+            close(fdComm_FromBB[1]);
             
             char fdComm_ToBB_str[10];
-            snprintf(fdComm_ToBB_str,sizeof(fdComm_ToBB_str),"%d",fdComm_ToBB[0]);
+            snprintf(fdComm_ToBB_str,sizeof(fdComm_ToBB_str),"%d",fdComm_ToBB[1]);
             
             char fdComm_FromBB_str[10];
-            snprintf(fdComm_FromBB_str,sizeof(fdComm_FromBB_str),"%d",fdComm_FromBB[1]);
+            snprintf(fdComm_FromBB_str,sizeof(fdComm_FromBB_str),"%d",fdComm_FromBB[0]);
             
-            execlp("./Communication_Client", "./Communication_Client",hostname, portno, fdComm_ToBB_str, fdComm_ToBB_str,(char *)NULL); // launch another process if condition met
+            char portno_str[10];
+            snprintf(portno_str, sizeof(portno_str), "%d", portno);
+
+            // Corrected arguments: hostname, port, FromBB (Read), ToBB (Write)
+            execlp("./Communication_Client", "./Communication_Client", hostname, portno_str, fdComm_FromBB_str, fdComm_ToBB_str, (char *)NULL);
         
             // If exec fails
             LOG_ERRNO("Master,Dr fork","exec failed");
