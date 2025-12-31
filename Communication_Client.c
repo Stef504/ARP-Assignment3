@@ -28,6 +28,7 @@ typedef struct {
 // Formula:
 // x1 = x0 + x cos(alfa) - y sin(alfa)
 // y1 = y0 + x sin(alfa) + y cos(alfa)
+// TO BE TESTED: alfa = 0, pi/2, pi
 Coord local_to_virtual(Coord local, int window_width, int window_height) {
     Coord v;
     float x = local.x;

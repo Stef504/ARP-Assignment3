@@ -1,3 +1,4 @@
+#define _POSIX_C_SOURCE 200809L
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -7,6 +8,7 @@
 #include <stdbool.h>
 #include <errno.h>
 #include <math.h>
+#include <signal.h>
 
 #ifndef M_PI
 #define M_PI 3.14159265358979323846
@@ -16,6 +18,14 @@
 #define VIRTUAL_X0 0.0
 #define VIRTUAL_Y0 0.0
 #define VIRTUAL_ALFA 0.0 // Angle in radians
+
+volatile sig_atomic_t terminate_flag = 0;
+
+void handle_signal(int sig) {
+    if (sig == SIGTERM || sig == SIGINT) {
+        terminate_flag = 1;
+    }
+}
 
 // Virtual coordinate conversion functions
 typedef struct {
@@ -27,6 +37,7 @@ typedef struct {
 // Formula:
 // x1 = x0 + x cos(alfa) - y sin(alfa)
 // y1 = y0 + x sin(alfa) + y cos(alfa)
+// TO BE TESTED: alfa = 0, pi/2, pi
 Coord local_to_virtual(Coord local, int window_width, int window_height) {
     Coord v;
     float x = local.x;
@@ -99,6 +110,13 @@ int main(int argc, char *argv[]) {
     
     printf("[COMM SERVER] Client connected!\n");
     
+    // Setup signal handlers
+    struct sigaction sa;
+    memset(&sa, 0, sizeof(sa));
+    sa.sa_handler = handle_signal;
+    sigaction(SIGTERM, &sa, NULL);
+    sigaction(SIGINT, &sa, NULL);
+
     char buffer[256];
     
     // PROTOCOL: Initial handshake
@@ -129,7 +147,7 @@ int main(int argc, char *argv[]) {
     bool running = true;
     int loop_count = 0;
     
-    while (running) {
+    while (running && !terminate_flag) {
         loop_count++;
         
         // a) Send "drone" command
@@ -222,8 +240,11 @@ int main(int argc, char *argv[]) {
         // Small delay
         usleep(50000); // 50ms
         
-        // TODO: Check for quit signal from BlackBoard
-        // For now, runs indefinitely until connection breaks
+        // Check for quit signal from BlackBoard (via SIGTERM or pipe close)
+        if (terminate_flag) {
+            printf("[COMM SERVER] Termination signal received.\n");
+            break;
+        }
     }
     
     // TERMINATION
