@@ -327,10 +327,10 @@ int main()
     
     }
 
-    pid_t Ob;
-    pid_t Ta;
-    pid_t WD;
-    pid_t Comm;
+    pid_t Ob = 0;
+    pid_t Ta = 0;
+    pid_t WD = 0;
+    pid_t Comm = 0;
 
     if (mode == 1){
         
@@ -392,21 +392,6 @@ int main()
         exit(1);
     
     }
-
-    //.....Watchdog.....
-    WD = fork();
-
-     if (WD < 0)
-    {
-    LOG_ERRNO("Master,WD fork","Error in fork");
-    return 1;
-    }
-
-   if (WD == 0) {
-    execl("./watchdog", "watchdog", NULL);
-    LOG_ERRNO("Master,WD fork","Failed to start watchdog"); 
-    exit(1); // Kill the child process immediately if execl fails
-}
 
     }
 
@@ -498,6 +483,22 @@ int main()
             exit(1);
         
         }
+    }
+
+    //.....Watchdog.....
+    // Moved outside the mode check so it runs in ALL modes
+    WD = fork();
+
+    if (WD < 0)
+    {
+        LOG_ERRNO("Master,WD fork","Error in fork");
+        return 1;
+    }
+
+    if (WD == 0) {
+        execl("./watchdog", "watchdog", NULL);
+        LOG_ERRNO("Master,WD fork","Failed to start watchdog"); 
+        exit(1); // Kill the child process immediately if execl fails
     }
 
     //closing all pipes

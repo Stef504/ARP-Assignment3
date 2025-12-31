@@ -22,6 +22,16 @@
 
 pid_t watchdog_pid = -1;
 
+/*
+void handle_signal(int sig) {
+    if (sig == SIGUSR1) {
+        if (watchdog_pid > 0) {
+            kill(watchdog_pid, SIGUSR2);
+        }
+    }
+}
+*/
+
 // Virtual coordinate conversion functions
 typedef struct {
     float x;
@@ -92,7 +102,15 @@ int main(int argc, char *argv[]) {
 
     logger_init("system.log");
     log_process("CommClient", getpid());
-    
+    watchdog_pid = get_pid_by_name("Watchdog");
+    /*
+    // Setup signal handlers
+    struct sigaction sa;
+    memset(&sa, 0, sizeof(sa));
+    sa.sa_handler = handle_signal;
+    sa.sa_flags = SA_RESTART;
+    sigaction(SIGUSR1, &sa, NULL);
+    */
     LOG_INFO("CommClient", "Connecting to %s:%d", hostname, portno);
     
     // Setup socket
