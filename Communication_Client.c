@@ -8,6 +8,8 @@
 #include <stdbool.h>
 #include <errno.h>
 #include <math.h>
+#include "logger.h"
+#include "logger_custom.h"
 
 #ifndef M_PI
 #define M_PI 3.14159265358979323846
@@ -119,14 +121,14 @@ int main(int argc, char *argv[]) {
     
     // PROTOCOL: Initial handshake
     // 1. Wait for "ok", send "ook"
-    if (read_line(sockfd, buffer, sizeof(buffer)) < 0 || strcmp(buffer, "ok") != 0) {
-        fprintf(stderr, "Protocol error: expected 'ok', got '%s'\n", buffer);
+    if (read_line(sockfd, buffer, sizeof(buffer)) < 0 || strcmp(buffer, "ServerConnected") != 0) {
+        fprintf(stderr, "Protocol error: expected 'ServerConnected', got '%s'\n", buffer);
         close(sockfd);
         return 1;
     }
-    printf("[COMM CLIENT] Received: ok\n");
-    write_line(sockfd, "ook");
-    printf("[COMM CLIENT] Sent: ook\n");
+    printf("[COMM CLIENT] Server connected\n");
+    write_line(sockfd, "ClientConnected");
+    printf("[COMM CLIENT] Sent connection acknowledgment to server\n");
     
     // 2. Wait for "size w h", send "sok"
     if (read_line(sockfd, buffer, sizeof(buffer)) < 0) {
@@ -142,8 +144,8 @@ int main(int argc, char *argv[]) {
     }
     printf("[COMM CLIENT] Received window size: %dx%d\n", window_width, window_height);
     
-    write_line(sockfd, "sok");
-    printf("[COMM CLIENT] Sent: sok\n");
+    write_line(sockfd, "w_h");
+    printf("[COMM CLIENT] Sent window size acknowledgment to server\n");
     
     printf("[COMM CLIENT] Handshake complete. Entering main loop...\n");
     
@@ -161,9 +163,9 @@ int main(int argc, char *argv[]) {
         }
         
         // Check for quit signal
-        if (strcmp(buffer, "q") == 0) {
+        if (strcmp(buffer, "quit_ok") == 0) {
             printf("[COMM CLIENT] Received quit signal\n");
-            write_line(sockfd, "qok");
+            write_line(sockfd, "quit_ok");
             running = false;
             break;
         }
@@ -183,17 +185,17 @@ int main(int argc, char *argv[]) {
         Coord server_virtual;
         if (sscanf(buffer, "%f %f", &server_virtual.x, &server_virtual.y) != 2) {
             fprintf(stderr, "Invalid server position format: '%s'\n", buffer);
-            // Send dok anyway to keep protocol in sync
-            write_line(sockfd, "dok");
+            // Send drone_ok anyway to keep protocol in sync
+            write_line(sockfd, "drone_ok");
             continue;
         }
         
         // Convert to local coordinates
         Coord server_local = virtual_to_local(server_virtual, window_width, window_height);
         
-        // Send "dok" acknowledgement
-        if (write_line(sockfd, "dok") < 0) {
-            fprintf(stderr, "Write error on 'dok'\n");
+        // Send "drone_ok" acknowledgement
+        if (write_line(sockfd, "drone_ok") < 0) {
+            fprintf(stderr, "Write error on 'drone_ok'\n");
             break;
         }
         
@@ -213,8 +215,8 @@ int main(int argc, char *argv[]) {
             break;
         }
         
-        if (strcmp(buffer, "obst") != 0) {
-            fprintf(stderr, "Protocol error: expected 'obst', got '%s'\n", buffer);
+        if (strcmp(buffer, "obstacle_ok") != 0) {
+            fprintf(stderr, "Protocol error: expected 'obstacle_ok', got '%s'\n", buffer);
             break;
         }
         
@@ -253,9 +255,9 @@ int main(int argc, char *argv[]) {
                    local.x, local.y, virtual.x, virtual.y);
         }
         
-        // Wait for "pok"
-        if (read_line(sockfd, buffer, sizeof(buffer)) < 0 || strcmp(buffer, "pok") != 0) {
-            fprintf(stderr, "Protocol error: expected 'pok', got '%s'\n", buffer);
+        // Wait for "position_ok"
+        if (read_line(sockfd, buffer, sizeof(buffer)) < 0 || strcmp(buffer, "position_ok") != 0) {
+            fprintf(stderr, "Protocol error: expected 'position_ok', got '%s'\n", buffer);
             break;
         }
         

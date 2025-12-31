@@ -10,6 +10,8 @@
 #include <errno.h>
 #include <math.h>
 #include <signal.h>
+#include "logger.h"
+#include "logger_custom.h"
 
 #ifndef M_PI
 #define M_PI 3.14159265358979323846
@@ -122,25 +124,25 @@ int main(int argc, char *argv[]) {
     
     // PROTOCOL: Initial handshake
     // 1. Send "ok", wait for "ook"
-    write_line(newsockfd, "ok");
-    if (read_line(newsockfd, buffer, sizeof(buffer)) < 0 || strcmp(buffer, "ook") != 0) {
-        fprintf(stderr, "Protocol error: expected 'ook', got '%s'\n", buffer);
+    write_line(newsockfd, "ServerConnected");
+    if (read_line(newsockfd, buffer, sizeof(buffer)) < 0 || strcmp(buffer, "ClientConnected") != 0) {
+        fprintf(stderr, "Protocol error: expected 'ClientConnected', got '%s'\n", buffer);
         close(newsockfd);
         return 1;
     }
-    printf("[COMM SERVER] Received: ook\n");
+    printf("[COMM SERVER] Received connection acknowledgment from client\n");
     
     // 2. Send "size w h", wait for "sok"
     snprintf(buffer, sizeof(buffer), "size %d %d", window_width, window_height);
     write_line(newsockfd, buffer);
     printf("[COMM SERVER] Sent: %s\n", buffer);
     
-    if (read_line(newsockfd, buffer, sizeof(buffer)) < 0 || strcmp(buffer, "sok") != 0) {
-        fprintf(stderr, "Protocol error: expected 'sok', got '%s'\n", buffer);
+    if (read_line(newsockfd, buffer, sizeof(buffer)) < 0 || strcmp(buffer, "w_h") != 0) {
+        fprintf(stderr, "Protocol error: expected 'w_h', got '%s'\n", buffer);
         close(newsockfd);
         return 1;
     }
-    printf("[COMM SERVER] Received: sok\n");
+    printf("[COMM SERVER] Received window size acknowledgment from client\n");
     
     printf("[COMM SERVER] Handshake complete. Entering main loop...\n");
     
@@ -192,15 +194,15 @@ int main(int argc, char *argv[]) {
                    local.x, local.y, virtual.x, virtual.y);
         }
         
-        // Wait for "dok"
-        if (read_line(newsockfd, buffer, sizeof(buffer)) < 0 || strcmp(buffer, "dok") != 0) {
-            fprintf(stderr, "Protocol error: expected 'dok', got '%s'\n", buffer);
+        // Wait for "drone_ok"
+        if (read_line(newsockfd, buffer, sizeof(buffer)) < 0 || strcmp(buffer, "drone_ok") != 0) {
+            fprintf(stderr, "Protocol error: expected 'drone_ok', got '%s'\n", buffer);
             break;
         }
         
-        // b) Send "obst" command
-        if (write_line(newsockfd, "obst") < 0) {
-            fprintf(stderr, "Write error on 'obst'\n");
+        // b) Send "obstacle_ok" command
+        if (write_line(newsockfd, "obstacle_ok") < 0) {
+            fprintf(stderr, "Write error on 'obstacle_ok'\n");
             break;
         }
         
@@ -215,16 +217,16 @@ int main(int argc, char *argv[]) {
         if (sscanf(buffer, "%f %f", &client_virtual.x, &client_virtual.y) != 2) {
             fprintf(stderr, "Invalid client position format: '%s'\n", buffer);
             // Send pok anyway to keep protocol in sync
-            write_line(newsockfd, "pok");
+            write_line(newsockfd, "position_ok");
             continue;
         }
         
         // Convert to local coordinates
         Coord client_local = virtual_to_local(client_virtual, window_width, window_height);
         
-        // Send "pok" acknowledgement
-        if (write_line(newsockfd, "pok") < 0) {
-            fprintf(stderr, "Write error on 'pok'\n");
+        // Send "position_ok" acknowledgement
+        if (write_line(newsockfd, "position_ok") < 0) {
+            fprintf(stderr, "Write error on 'position_ok'\n");
             break;
         }
         
@@ -250,9 +252,9 @@ int main(int argc, char *argv[]) {
     
     // TERMINATION
     printf("[COMM SERVER] Sending quit signal\n");
-    write_line(newsockfd, "q");
+    write_line(newsockfd, "quit");
     read_line(newsockfd, buffer, sizeof(buffer));
-    if (strcmp(buffer, "qok") == 0) {
+    if (strcmp(buffer, "quit_ok") == 0) {
         printf("[COMM SERVER] Clean shutdown\n");
     }
     
