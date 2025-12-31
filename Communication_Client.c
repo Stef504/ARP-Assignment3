@@ -88,20 +88,18 @@ int main(int argc, char *argv[]) {
     int fdComm_FromBB = atoi(argv[3]);  // Read MY drone position from BB
     int fdComm_ToBB = atoi(argv[4]);    // Write SERVER's position to BB
     
-    logger_init("system.log");
-
-    LOG_INFO("CommClient", "Connecting to %s:%d", hostname, portno);
+    printf("[COMM CLIENT] Connecting to %s:%d\n", hostname, portno);
     
     // Setup socket
     int sockfd = socket(AF_INET, SOCK_STREAM, 0);
     if (sockfd < 0) {
-        LOG_ERRNO("CommClient", "ERROR opening socket");
+        perror("ERROR opening socket");
         return 1;
     }
     
     struct hostent *server = gethostbyname(hostname);
     if (server == NULL) {
-        LOG_ERROR("CommClient", "ERROR, no such host: %s", hostname);
+        fprintf(stderr, "ERROR, no such host: %s\n", hostname);
         return 1;
     }
     
@@ -112,11 +110,11 @@ int main(int argc, char *argv[]) {
     serv_addr.sin_port = htons(portno);
     
     if (connect(sockfd, (struct sockaddr *)&serv_addr, sizeof(serv_addr)) < 0) {
-        LOG_ERRNO("CommClient", "ERROR connecting");
+        perror("ERROR connecting");
         return 1;
     }
     
-    LOG_INFO("CommClient", "Connected to server!");
+    printf("[COMM CLIENT] Connected to server!\n");
     
     char buffer[256];
     int window_width, window_height;
@@ -124,32 +122,32 @@ int main(int argc, char *argv[]) {
     // PROTOCOL: Initial handshake
     // 1. Wait for "ok", send "ook"
     if (read_line(sockfd, buffer, sizeof(buffer)) < 0 || strcmp(buffer, "ServerConnected") != 0) {
-        LOG_ERROR("CommClient", "Protocol error: expected 'ServerConnected', got '%s'", buffer);
+        fprintf(stderr, "Protocol error: expected 'ServerConnected', got '%s'\n", buffer);
         close(sockfd);
         return 1;
     }
-    LOG_INFO("CommClient", "Server connected");
+    printf("[COMM CLIENT] Server connected\n");
     write_line(sockfd, "ClientConnected");
-    LOG_INFO("CommClient", "Sent connection acknowledgment to server");
+    printf("[COMM CLIENT] Sent connection acknowledgment to server\n");
     
     // 2. Wait for "size w h", send "sok"
     if (read_line(sockfd, buffer, sizeof(buffer)) < 0) {
-        LOG_ERROR("CommClient", "Read error on size");
+        fprintf(stderr, "Read error on size\n");
         close(sockfd);
         return 1;
     }
     
     if (sscanf(buffer, "size %d %d", &window_width, &window_height) != 2) {
-        LOG_ERROR("CommClient", "Protocol error: invalid size format '%s'", buffer);
+        fprintf(stderr, "Protocol error: invalid size format '%s'\n", buffer);
         close(sockfd);
         return 1;
     }
-    LOG_INFO("CommClient", "Received window size: %dx%d", window_width, window_height);
+    printf("[COMM CLIENT] Received window size: %dx%d\n", window_width, window_height);
     
     write_line(sockfd, "w_h");
-    LOG_INFO("CommClient", "Sent window size acknowledgment to server");
+    printf("[COMM CLIENT] Sent window size acknowledgment to server\n");
     
-    LOG_INFO("CommClient", "Handshake complete. Entering main loop...");
+    printf("[COMM CLIENT] Handshake complete. Entering main loop...\n");
     
     // MAIN LOOP
     bool running = true;
@@ -160,33 +158,33 @@ int main(int argc, char *argv[]) {
         
         // a) Wait for "drone" or "q" command
         if (read_line(sockfd, buffer, sizeof(buffer)) < 0) {
-            LOG_ERROR("CommClient", "Read error");
+            fprintf(stderr, "Read error\n");
             break;
         }
         
         // Check for quit signal
         if (strcmp(buffer, "quit_ok") == 0) {
-            LOG_INFO("CommClient", "Received quit signal");
+            printf("[COMM CLIENT] Received quit signal\n");
             write_line(sockfd, "quit_ok");
             running = false;
             break;
         }
         
         if (strcmp(buffer, "drone") != 0) {
-            LOG_ERROR("CommClient", "Protocol error: expected 'drone' or 'q', got '%s'", buffer);
+            fprintf(stderr, "Protocol error: expected 'drone' or 'q', got '%s'\n", buffer);
             break;
         }
         
         // Wait for server position in virtual coordinates (format: "x.x y.y")
         if (read_line(sockfd, buffer, sizeof(buffer)) < 0) {
-            LOG_ERROR("CommClient", "Read error on server position");
+            fprintf(stderr, "Read error on server position\n");
             break;
         }
         
         // Parse virtual coordinates
         Coord server_virtual;
         if (sscanf(buffer, "%f %f", &server_virtual.x, &server_virtual.y) != 2) {
-            LOG_ERROR("CommClient", "Invalid server position format: '%s'", buffer);
+            fprintf(stderr, "Invalid server position format: '%s'\n", buffer);
             // Send drone_ok anyway to keep protocol in sync
             write_line(sockfd, "drone_ok");
             continue;
@@ -197,7 +195,7 @@ int main(int argc, char *argv[]) {
         
         // Send "drone_ok" acknowledgement
         if (write_line(sockfd, "drone_ok") < 0) {
-            LOG_ERROR("CommClient", "Write error on 'drone_ok'");
+            fprintf(stderr, "Write error on 'drone_ok'\n");
             break;
         }
         
@@ -207,18 +205,18 @@ int main(int argc, char *argv[]) {
         write(fdComm_ToBB, server_pos_str, strlen(server_pos_str) + 1);
         
         if (loop_count % 20 == 0) {
-            LOG_INFO("CommClient", "Received server: virtual(%.1f,%.1f) -> local(%.1f,%.1f)",
+            printf("[COMM CLIENT] Received server: virtual(%.1f,%.1f) -> local(%.1f,%.1f)\n",
                    server_virtual.x, server_virtual.y, server_local.x, server_local.y);
         }
         
         // b) Wait for "obst" command
         if (read_line(sockfd, buffer, sizeof(buffer)) < 0) {
-            LOG_ERROR("CommClient", "Read error");
+            fprintf(stderr, "Read error\n");
             break;
         }
         
         if (strcmp(buffer, "obstacle_ok") != 0) {
-            LOG_ERROR("CommClient", "Protocol error: expected 'obstacle_ok', got '%s'", buffer);
+            fprintf(stderr, "Protocol error: expected 'obstacle_ok', got '%s'\n", buffer);
             break;
         }
         
@@ -230,7 +228,7 @@ int main(int argc, char *argv[]) {
                 usleep(10000);
                 continue;
             }
-            LOG_ERROR("CommClient", "Failed to read from BlackBoard");
+            fprintf(stderr, "Failed to read from BlackBoard\n");
             break;
         }
         my_pos[bytes] = '\0';
@@ -238,7 +236,7 @@ int main(int argc, char *argv[]) {
         // Parse local coordinates (format: "x.x,y.y")
         Coord local;
         if (sscanf(my_pos, "%f,%f", &local.x, &local.y) != 2) {
-            LOG_ERROR("CommClient", "Invalid format from BlackBoard: '%s'", my_pos);
+            fprintf(stderr, "Invalid format from BlackBoard: '%s'\n", my_pos);
             continue;
         }
         
@@ -248,18 +246,18 @@ int main(int argc, char *argv[]) {
         // Send position in virtual coordinates (format: "x.x y.y" - note space, not comma)
         snprintf(buffer, sizeof(buffer), "%.1f %.1f", virtual.x, virtual.y);
         if (write_line(sockfd, buffer) < 0) {
-            LOG_ERROR("CommClient", "Write error on position");
+            fprintf(stderr, "Write error on position\n");
             break;
         }
         
         if (loop_count % 20 == 0) {
-            LOG_INFO("CommClient", "Sent my pos: local(%.1f,%.1f) -> virtual(%.1f,%.1f)",
+            printf("[COMM CLIENT] Sent my pos: local(%.1f,%.1f) -> virtual(%.1f,%.1f)\n",
                    local.x, local.y, virtual.x, virtual.y);
         }
         
         // Wait for "position_ok"
         if (read_line(sockfd, buffer, sizeof(buffer)) < 0 || strcmp(buffer, "position_ok") != 0) {
-            LOG_ERROR("CommClient", "Protocol error: expected 'position_ok', got '%s'", buffer);
+            fprintf(stderr, "Protocol error: expected 'position_ok', got '%s'\n", buffer);
             break;
         }
         
@@ -267,12 +265,11 @@ int main(int argc, char *argv[]) {
         usleep(50000); // 50ms
     }
     
-    LOG_INFO("CommClient", "Connection closed");
+    printf("[COMM CLIENT] Connection closed\n");
     
     close(sockfd);
     close(fdComm_FromBB);
     close(fdComm_ToBB);
     
-    logger_close();
     return 0;
 }
