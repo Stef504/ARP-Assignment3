@@ -103,7 +103,7 @@ int main(int argc, char *argv[])
 
      // 1. LOG SELF immediately
     log_process("Obstacles", getpid());
-    logger_init("system.log");
+    logger_init("system.log",0);
     LOG_INFO("Obstacles", "Starting Obstacles Process (PID=%d)", getpid());
 
     pid_t watchdog_pid = -1;

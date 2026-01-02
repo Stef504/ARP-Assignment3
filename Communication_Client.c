@@ -99,8 +99,9 @@ int main(int argc, char *argv[]) {
     sigaction(SIGTERM, &sa, NULL);
 
     // Initialize logger and log self
-    logger_init("system.log");
     log_process("CommClient", getpid());
+    logger_init("system.log",0);
+    
 
     if (argc != 5) {
         fprintf(stderr, "Usage: %s <hostname> <port> <fdComm_FromBB> <fdComm_ToBB>\n", argv[0]);

@@ -49,7 +49,7 @@ int main(int argc, char *argv[])
 
      // 1. LOG SELF immediately
     log_process("Input", getpid());
-    logger_init("system.log");
+    logger_init("system.log",0);
     LOG_INFO("Input", "Starting Input Process (PID=%d)", getpid());
     
     pid_t watchdog_pid = -1;

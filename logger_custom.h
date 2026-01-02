@@ -16,7 +16,7 @@ typedef enum {
 } LogLevel;
 
 // Function prototypes
-int logger_init(const char* log_file_path);
+int logger_init(const char* log_file_path, int should_wipe);
 void logger_close(void);
 void logger_log(LogLevel level, const char* process_name, const char* file, 
                 int line, const char* function, const char* format, ...);

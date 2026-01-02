@@ -103,7 +103,7 @@ int main(int argc, char *argv[])
     
      // 1. LOG SELF immediately
     log_process("Targets", getpid());
-    logger_init("system.log");
+    logger_init("system.log",0);
     LOG_INFO("Targets", "Starting Targets Process (PID=%d)", getpid());
 
     pid_t watchdog_pid = -1;

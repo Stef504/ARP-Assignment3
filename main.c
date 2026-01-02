@@ -118,8 +118,7 @@ int main()
 
     // 2. LOG the Master process
     log_process("Master", getpid());
-
-    logger_init("system.log");  // 
+    logger_init("system.log",1);  // 
     LOG_INFO("Master", "Starting Master Process (PID=%d)", getpid());
     
     int fdIn[2], fdOb[2], fdTa[2],fdToBB[2], fdFromBB[2],fdRepul[2], fdComm_ToBB[2], fdComm_FromBB[2];
@@ -544,23 +543,24 @@ int main()
             fprintf(stderr, "MASTER: Drone (PID %d) has stopped. Shutting down system...\n", wpid);
             
             // 1. Terminate everyone including Watchdog
+            if (Comm > 0) kill(Comm, SIGTERM);
+            if (WD > 0) kill(WD, SIGTERM); 
             if (BB > 0) kill(BB, SIGTERM);
             if (In > 0) kill(In, SIGTERM);
             if (Ob > 0) kill(Ob, SIGTERM);
-            if (Ta > 0) kill(Ta, SIGTERM);
-            if (WD > 0) kill(WD, SIGTERM); 
-            if (Comm > 0) kill(Comm, SIGTERM);
+            if (Ta > 0) kill(Ta, SIGTERM);         
             
             // 2. Grace period
-            usleep(100000); 
+            sleep(1); 
             
             // 3. Force Kill
+            if (Comm > 0) kill(Comm, SIGKILL);
             if (BB > 0) kill(BB, SIGKILL);
             if (In > 0) kill(In, SIGKILL);
             if (Ob > 0) kill(Ob, SIGKILL);
             if (Ta > 0) kill(Ta, SIGKILL);
             if (WD > 0) kill(WD, SIGKILL);
-            if (Comm > 0) kill(Comm, SIGKILL);
+            
             
             break; // Break the loop to finish up
         }

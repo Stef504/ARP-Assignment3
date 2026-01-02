@@ -65,6 +65,8 @@ void handle_signal(int signo) {
 void handle_terminate(int signo) {
     if (signo == SIGTERM) {
         should_exit = 1;
+        const char *msg = "\n[DEBUG] BlackBoard received SIGTERM\n";
+        write(STDOUT_FILENO, msg, strlen(msg));
     }
 }
 
@@ -165,11 +167,18 @@ int main(int argc, char *argv[]) {
     struct sigaction sa;
     memset(&sa, 0, sizeof(sa));
     sa.sa_handler = handle_signal;
+    sigemptyset(&sa.sa_mask);
     sigaction(SIGUSR1, &sa, NULL);
+
+    memset(&sa, 0, sizeof(sa));
+    sa.sa_handler = handle_terminate;
+    sa.sa_flags =0; // Restart interrupted syscalls
+    sigemptyset(&sa.sa_mask);
+    sigaction(SIGTERM, &sa, NULL);
     
     // LOG SELF immediately
     log_process("BlackBoard", getpid());
-    logger_init("system.log");
+    logger_init("system.log",0);
     LOG_INFO("BlackBoard", "Starting BlackBoard Process (PID=%d)", getpid());
     
     pid_t watchdog_pid = -1;
@@ -401,8 +410,25 @@ int main(int argc, char *argv[]) {
                        //In networked mode, send MY drone position to communication process
                         if (mode != 1) {
                             char comm_msg[100];
-                            snprintf(comm_msg, sizeof(comm_msg), "%.0f,%.0f", x_curr, y_curr);
-                            write(fdComm_FromBB, comm_msg, strlen(comm_msg) + 1);
+                            // --- SAFE WRITE ---
+                            // Ignore SIGPIPE for this specific call so we don't crash unexpectedly,
+                            // but handle the error if the pipe is broken.
+                            struct sigaction new_actn, old_actn;
+                            new_actn.sa_handler = SIG_IGN;
+                            sigemptyset(&new_actn.sa_mask);
+                            new_actn.sa_flags = 0;
+                            sigaction(SIGPIPE, &new_actn, &old_actn); // Ignore SIGPIPE temporarily
+
+                            if (write(fdComm_FromBB, comm_msg, strlen(comm_msg) + 1) == -1) {
+                                // If error is Broken Pipe, the Server is dead.
+                                if (errno == EPIPE) {
+                                    LOG_ERROR("BlackBoard", "CommServer died (Broken Pipe).");
+                                    // Optional: running = false; // Exit if you want BB to die when Server dies
+                                }
+                            }
+                            
+                            sigaction(SIGPIPE, &old_actn, NULL); // Restore original handler
+                            
                             LOG_INFO("BlackBoard","Sent drone coordinates to Communication Client");
                         } 
                     }   
@@ -511,8 +537,9 @@ int main(int argc, char *argv[]) {
                 } 
                 else { 
                     LOG_ERROR("BlackBoard", "Communication pipe closed unexpectedly");
-                    running = false; } // Pipe closed
-                }
+                    running = false; 
+                } // Pipe closed
+            }
         }                
 
         char input_key= sIn[0];

@@ -31,6 +31,9 @@ volatile sig_atomic_t should_exit = 0;
 void handle_terminate(int signo) {
     if (signo == SIGTERM) {
         should_exit = 1;
+        // Direct write to console to prove we got the signal
+        const char *msg = "\n[DEBUG] CommServer received SIGTERM\n";
+        write(STDOUT_FILENO, msg, strlen(msg));
     }
 }
 
@@ -97,12 +100,13 @@ int main(int argc, char *argv[]) {
     struct sigaction sa;
     memset(&sa, 0, sizeof(sa));
     sa.sa_handler = handle_terminate;
+    sa.sa_flags = 0; // Restart interrupted syscalls
     sigaction(SIGTERM, &sa, NULL);
-
-    logger_init("system.log");
-    log_process("CommServer", getpid());
-       
     
+    log_process("CommServer", getpid());
+    logger_init("system.log",0);
+    LOG_INFO("CommServer", "Starting Communication Server Process (PID=%d)", getpid());
+          
     if (argc != 6) {
         fprintf(stderr, "Usage: %s <sockfd> <fdComm_FromBB> <fdComm_ToBB> <width> <height>\n", argv[0]);
         return 1;
@@ -116,30 +120,61 @@ int main(int argc, char *argv[]) {
 
     LOG_INFO("CommServer", "Window size: %dx%d", window_width, window_height);
     LOG_INFO("CommServer", "Waiting for client connection...");
-    printf("Waiting for client connection...\n");
+    //printf("Waiting for client connection...\n");
     
-    // Accept connection
     struct sockaddr_in cli_addr;
     socklen_t clilen = sizeof(cli_addr);
-    int newsockfd = accept(listen_sockfd, (struct sockaddr *)&cli_addr, &clilen);
+    int newsockfd = -1;
+
+    // --- Loop that waits for connection OR exit signal ---
+    //Either we want to exit before client accepts or we get a client connection
+    //using a select to check
+    while (!should_exit) {
+        fd_set readfds;
+        struct timeval tv;
+
+        FD_ZERO(&readfds);
+        FD_SET(listen_sockfd, &readfds);
+
+        tv.tv_sec = 1; // Check for 'q' every 1 second
+        tv.tv_usec = 0;
+
+        // Wait to see if a client is knocking
+        int activity = select(listen_sockfd + 1, &readfds, NULL, NULL, &tv);
+
+        if (activity > 0) {
+            // A client is waiting! Safe to call accept() now without blocking.
+            newsockfd = accept(listen_sockfd, (struct sockaddr *)&cli_addr, &clilen);
+            break; // Exit the wait loop and proceed to handshake
+        } else if (activity == -1) {
+            // Error (likely interrupted by signal 'q')
+            if (errno != EINTR) LOG_ERRNO("CommServer", "Select error");
+        }
+        // If activity == 0 (Timeout), loop repeats and checks 'should_exit'
+    }
+
+    // --- CHECK: Did we exit the loop because of 'q'? ---
+    if (should_exit) {
+        LOG_INFO("CommServer", "Exiting while waiting for client.");
+        close(listen_sockfd); // Clean up
+        logger_close();
+        return 0; // Terminate immediately
+    }
+
     if (newsockfd < 0) {
         LOG_ERRNO("CommServer", "ERROR on accept");
         return 1;
     }
+
     
     LOG_INFO("CommServer", "Client connected!");
-
-    // --- SET TIMEOUT (No extra function needed) ---
+    char buffer[256];
+    // --- SET TIMEOUT ---
     struct timeval tv;
     tv.tv_sec = 1;  // 1 Second timeout
     tv.tv_usec = 0;
     setsockopt(newsockfd, SOL_SOCKET, SO_RCVTIMEO, (const char*)&tv, sizeof tv);
-
-    char buffer[256];
-    // TERMINATION
-    LOG_INFO("CommServer", "Sending quit signal");
-    write_line(newsockfd, "quit");
-    
+ 
         
     // PROTOCOL: Initial handshake
     // 1. Send "ok", wait for "ook"
@@ -287,6 +322,9 @@ int main(int argc, char *argv[]) {
 
     // --- READ (Will now fail automatically after 1s) ---
     // If read_line returns < 0, it means it timed out or failed
+    // TERMINATION
+    LOG_INFO("CommServer", "Sending quit signal");
+    write_line(newsockfd, "quit");
     if (read_line(newsockfd, buffer, sizeof(buffer)) > 0) {
         if (strcmp(buffer, "quit_ok") == 0) {
             LOG_INFO("CommServer", "Clean shutdown acknowledged");

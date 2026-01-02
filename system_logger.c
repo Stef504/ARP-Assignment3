@@ -22,7 +22,7 @@ static const char* log_level_to_string(LogLevel level) {
     }
 }
 
-int logger_init(const char* path) {
+/*int logger_init(const char* path) {
     // Just store the path - don't open the file yet
     strncpy(log_file_path, path, sizeof(log_file_path) - 1);
     log_file_path[sizeof(log_file_path) - 1] = '\0';
@@ -38,6 +38,31 @@ int logger_init(const char* path) {
     // Reset the log file at start
     FILE* reset = fopen(log_file_path, "w");
     if (reset) fclose(reset);
+    
+    return 0;
+}*/
+
+// int should_wipe: 1 = wipe file (truncate), 0 = append only
+int logger_init(const char* path, int should_wipe) {
+
+    // Just store the path - don't open the file yet
+    strncpy(log_file_path, path, sizeof(log_file_path) - 1);
+    log_file_path[sizeof(log_file_path) - 1] = '\0';
+    
+    if (should_wipe) {
+        // Master calls this: Wipe the file clean
+        FILE* reset = fopen(log_file_path, "w");
+        if (reset) fclose(reset);
+    } else {
+        // Everyone else calls this: Just check if we can open it
+        // "a" creates the file if it doesn't exist, but doesn't wipe it
+        FILE* test = fopen(log_file_path, "a");
+        if (test == NULL) {
+            perror("Failed to open log file");
+            return -1;
+        }
+        fclose(test);
+    }
     
     return 0;
 }
