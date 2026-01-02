@@ -8,6 +8,8 @@
 #include <stdbool.h>
 #include <errno.h>
 #include <math.h>
+#include <signal.h>
+#include <sys/file.h>
 #include "logger.h"
 #include "logger_custom.h"
 
@@ -20,17 +22,8 @@
 #define VIRTUAL_Y0 0.0
 #define VIRTUAL_ALFA 0.0 
 
-pid_t watchdog_pid = -1;
-
-/*
-void handle_signal(int sig) {
-    if (sig == SIGUSR1) {
-        if (watchdog_pid > 0) {
-            kill(watchdog_pid, SIGUSR2);
-        }
-    }
-}
-*/
+//sig_atomic_t ensures atomic access during signal handling
+volatile sig_atomic_t should_exit = 0;
 
 // Virtual coordinate conversion functions
 typedef struct {
@@ -89,7 +82,26 @@ int write_line(int sockfd, const char *message) {
     return write(sockfd, buffer, strlen(buffer));
 }
 
+
+//termination handler from master process
+void handle_terminate(int signo) {
+    if (signo == SIGTERM) {
+        should_exit = 1;
+    }
+}
+
 int main(int argc, char *argv[]) {
+
+    // Setup signal handling FIRST
+    struct sigaction sa;
+    memset(&sa, 0, sizeof(sa));
+    sa.sa_handler = handle_terminate;
+    sigaction(SIGTERM, &sa, NULL);
+
+    // Initialize logger and log self
+    logger_init("system.log");
+    log_process("CommClient", getpid());
+
     if (argc != 5) {
         fprintf(stderr, "Usage: %s <hostname> <port> <fdComm_FromBB> <fdComm_ToBB>\n", argv[0]);
         return 1;
@@ -99,18 +111,7 @@ int main(int argc, char *argv[]) {
     int portno = atoi(argv[2]);
     int fdComm_FromBB = atoi(argv[3]);  // Read MY drone position from BB
     int fdComm_ToBB = atoi(argv[4]);    // Write SERVER's position to BB
-
-    logger_init("system.log");
-    log_process("CommClient", getpid());
-    watchdog_pid = get_pid_by_name("Watchdog");
-    /*
-    // Setup signal handlers
-    struct sigaction sa;
-    memset(&sa, 0, sizeof(sa));
-    sa.sa_handler = handle_signal;
-    sa.sa_flags = SA_RESTART;
-    sigaction(SIGUSR1, &sa, NULL);
-    */
+    
     LOG_INFO("CommClient", "Connecting to %s:%d", hostname, portno);
     
     // Setup socket
@@ -177,6 +178,11 @@ int main(int argc, char *argv[]) {
     int loop_count = 0;
     
     while (running) {
+        if (should_exit) {
+            LOG_INFO("Input", "Termination signal received. Exiting main loop.");
+            break;
+        }
+
         loop_count++;
         
         // a) Wait for "drone" or "q" command

@@ -10,6 +10,7 @@
 #include <errno.h>
 #include <math.h>
 #include <signal.h>
+#include <sys/file.h>
 #include "logger.h"
 #include "logger_custom.h"
 
@@ -22,16 +23,14 @@
 #define VIRTUAL_Y0 0.0
 #define VIRTUAL_ALFA 0.0 // Angle in radians
 
-volatile sig_atomic_t terminate_flag = 0;
-pid_t watchdog_pid = -1;
 
-void handle_signal(int sig) {
-    if (sig == SIGTERM || sig == SIGINT) {
-        terminate_flag = 1;
-    } else if (sig == SIGUSR1) {
-        if (watchdog_pid > 0) {
-            kill(watchdog_pid, SIGUSR2);
-        }
+//sig_atomic_t ensures atomic access during signal handling
+volatile sig_atomic_t should_exit = 0;
+
+//termination handler from master process
+void handle_terminate(int signo) {
+    if (signo == SIGTERM) {
+        should_exit = 1;
     }
 }
 
@@ -93,6 +92,18 @@ int write_line(int sockfd, const char *message) {
 }
 
 int main(int argc, char *argv[]) {
+
+    // Setup signal handling FIRST
+    struct sigaction sa;
+    memset(&sa, 0, sizeof(sa));
+    sa.sa_handler = handle_terminate;
+    sigaction(SIGTERM, &sa, NULL);
+
+    logger_init("system.log");
+    log_process("CommServer", getpid());
+       
+    
+
     if (argc != 6) {
         fprintf(stderr, "Usage: %s <sockfd> <fdComm_FromBB> <fdComm_ToBB> <width> <height>\n", argv[0]);
         return 1;
@@ -104,10 +115,6 @@ int main(int argc, char *argv[]) {
     int window_width = atoi(argv[4]);
     int window_height = atoi(argv[5]);
 
-    logger_init("system.log");
-    log_process("CommServer", getpid());
-    watchdog_pid = get_pid_by_name("Watchdog");
-    
     LOG_INFO("CommServer", "Window size: %dx%d", window_width, window_height);
     LOG_INFO("CommServer", "Waiting for client connection...");
     
@@ -121,15 +128,6 @@ int main(int argc, char *argv[]) {
     }
     
     LOG_INFO("CommServer", "Client connected!");
-    
-    // Setup signal handlers
-    struct sigaction sa;
-    memset(&sa, 0, sizeof(sa));
-    sa.sa_handler = handle_signal;
-    sa.sa_flags = SA_RESTART;
-    sigaction(SIGTERM, &sa, NULL);
-    sigaction(SIGINT, &sa, NULL);
-    sigaction(SIGUSR1, &sa, NULL);
 
     char buffer[256];
     
@@ -161,7 +159,13 @@ int main(int argc, char *argv[]) {
     bool running = true;
     int loop_count = 0;
     
-    while (running && !terminate_flag) {
+    while (running) {
+
+        // Check for termination signal from master
+        if (should_exit) {
+            LOG_INFO("Input", "Termination signal received. Exiting main loop.");
+            break;
+        }
         loop_count++;
         
         // a) Send "drone" command
@@ -254,11 +258,7 @@ int main(int argc, char *argv[]) {
         // Small delay
         usleep(50000); // 50ms
         
-        // Check for quit signal from BlackBoard (via SIGTERM or pipe close)
-        if (terminate_flag) {
-            LOG_INFO("CommServer", "Termination signal received.");
-            break;
-        }
+       
     }
     
     // TERMINATION

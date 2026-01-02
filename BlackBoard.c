@@ -720,8 +720,8 @@ int main(int argc, char *argv[]) {
 
         if (mode != 1 && remote_drone_valid) {
 
-            if (remote_drone.x < 0 || remote_drone.x >= ww ||
-                remote_drone.y < 0 || remote_drone.y >= wh) {
+            if (remote_drone.x > 0 || remote_drone.x < ww ||
+                remote_drone.y > 0 || remote_drone.y < wh) {
             // Remote drone is out of bounds, skip drawing
             // Draw remote drone as 'C'
 
