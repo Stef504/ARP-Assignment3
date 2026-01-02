@@ -327,73 +327,9 @@ int main()
     
     }
 
-    pid_t Ob = 0;
-    pid_t Ta = 0;
-    pid_t WD = 0;
-    pid_t Comm = 0;
-
-    if (mode == 1){
-        
-    //.....Obstacle.....
-    Ob=fork();
-
-    if (Ob < 0)
-    {
-    LOG_ERRNO("Master,Ob fork","Error in fork");
-    return 1;
-    }
-
-    if (Ob == 0)
-    {
-       
-        printf("Process Ob: PID = %d\n", getpid()); 
-
-        close(fdOb[0]);
-
-        char fd_str[10];
-        snprintf(fd_str, sizeof(fd_str), "%d", fdOb[1]);
-        
-        execlp("./process_Ob", "./process_Ob", fd_str, (char *)NULL);
-       
-        perror("exec failed");
-        exit(1);
-     
-    }
-
-
-    //.....Targets.....
-    Ta=fork();
-
-    if (Ta < 0)
-    {
-    LOG_ERRNO("Master,Ta fork","Error in fork");
-    return 1;
-    }
-
-    if (Ta == 0)
-    {
-       
-        // Child process
-        printf("Process Ta: PID = %d\n", getpid()); //getpid gets the file id
-
-        // Close the reading end of the pipe in the child
-        close(fdTa[0]);
-
-        // Convert fd[1] to a string to pass as an argument, fd[1] is for writing
-        char fd_str[10];
-        snprintf(fd_str, sizeof(fd_str), "%d", fdTa[1]);//saying whatever it reads store in fd_str
-
-        // Execute process_P with fd[1] as a command-line argument
-        
-        execlp("./process_Ta", "./process_Ta", fd_str, (char *)NULL); // launch another process if condition met
-       
-        // If exec fails
-        LOG_ERRNO("Master,Ta fork","exec failed");
-        exit(1);
     
-    }
-
     //.....Watchdog.....
+    pid_t WD = 0;
     WD = fork();
 
     if (WD < 0)
@@ -407,6 +343,71 @@ int main()
         LOG_ERRNO("Master,WD fork","Failed to start watchdog"); 
         exit(1); // Kill the child process immediately if execl fails
     }
+
+    pid_t Ob = 0;
+    pid_t Ta = 0;
+    pid_t Comm = 0;
+
+    if (mode == 1){
+        
+        //.....Obstacle.....
+        Ob=fork();
+
+        if (Ob < 0)
+        {
+        LOG_ERRNO("Master,Ob fork","Error in fork");
+        return 1;
+        }
+
+        if (Ob == 0)
+        {
+        
+            printf("Process Ob: PID = %d\n", getpid()); 
+
+            close(fdOb[0]);
+
+            char fd_str[10];
+            snprintf(fd_str, sizeof(fd_str), "%d", fdOb[1]);
+            
+            execlp("./process_Ob", "./process_Ob", fd_str, (char *)NULL);
+        
+            perror("exec failed");
+            exit(1);
+        
+        }
+
+
+        //.....Targets.....
+        Ta=fork();
+
+        if (Ta < 0)
+        {
+        LOG_ERRNO("Master,Ta fork","Error in fork");
+        return 1;
+        }
+
+        if (Ta == 0)
+        {
+        
+            // Child process
+            printf("Process Ta: PID = %d\n", getpid()); //getpid gets the file id
+
+            // Close the reading end of the pipe in the child
+            close(fdTa[0]);
+
+            // Convert fd[1] to a string to pass as an argument, fd[1] is for writing
+            char fd_str[10];
+            snprintf(fd_str, sizeof(fd_str), "%d", fdTa[1]);//saying whatever it reads store in fd_str
+
+            // Execute process_P with fd[1] as a command-line argument
+            
+            execlp("./process_Ta", "./process_Ta", fd_str, (char *)NULL); // launch another process if condition met
+        
+            // If exec fails
+            LOG_ERRNO("Master,Ta fork","exec failed");
+            exit(1);
+        
+        }
 
     }
 
