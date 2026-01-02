@@ -103,7 +103,6 @@ int main(int argc, char *argv[]) {
     log_process("CommServer", getpid());
        
     
-
     if (argc != 6) {
         fprintf(stderr, "Usage: %s <sockfd> <fdComm_FromBB> <fdComm_ToBB> <width> <height>\n", argv[0]);
         return 1;
@@ -117,6 +116,7 @@ int main(int argc, char *argv[]) {
 
     LOG_INFO("CommServer", "Window size: %dx%d", window_width, window_height);
     LOG_INFO("CommServer", "Waiting for client connection...");
+    printf("Waiting for client connection...\n");
     
     // Accept connection
     struct sockaddr_in cli_addr;
@@ -129,8 +129,18 @@ int main(int argc, char *argv[]) {
     
     LOG_INFO("CommServer", "Client connected!");
 
+    // --- SET TIMEOUT (No extra function needed) ---
+    struct timeval tv;
+    tv.tv_sec = 1;  // 1 Second timeout
+    tv.tv_usec = 0;
+    setsockopt(newsockfd, SOL_SOCKET, SO_RCVTIMEO, (const char*)&tv, sizeof tv);
+
     char buffer[256];
+    // TERMINATION
+    LOG_INFO("CommServer", "Sending quit signal");
+    write_line(newsockfd, "quit");
     
+        
     // PROTOCOL: Initial handshake
     // 1. Send "ok", wait for "ook"
     write_line(newsockfd, "ServerConnected");
@@ -209,8 +219,15 @@ int main(int argc, char *argv[]) {
                    local.x, local.y, virtual.x, virtual.y);
         }
         
+
         // Wait for "drone_ok"
         if (read_line(newsockfd, buffer, sizeof(buffer)) < 0 || strcmp(buffer, "drone_ok") != 0) {
+            // Check for termination signal from master
+            if (should_exit) {
+                LOG_INFO("Input", "Termination signal received. Exiting main loop.");
+                break;
+            }
+            
             LOG_ERROR("CommServer", "Protocol error: expected 'drone_ok', got '%s'", buffer);
             break;
         }
@@ -221,8 +238,15 @@ int main(int argc, char *argv[]) {
             break;
         }
         
+    
         // Wait for client position in virtual coordinates (format: "x.x y.y")
         if (read_line(newsockfd, buffer, sizeof(buffer)) < 0) {
+            // Check for termination signal from master
+            if (should_exit) {
+                LOG_INFO("Input", "Termination signal received. Exiting main loop.");
+                break;
+            }
+                
             LOG_ERROR("CommServer", "Read error on client position");
             break;
         }
@@ -260,15 +284,20 @@ int main(int argc, char *argv[]) {
         
        
     }
-    
-    // TERMINATION
-    LOG_INFO("CommServer", "Sending quit signal");
-    write_line(newsockfd, "quit");
-    read_line(newsockfd, buffer, sizeof(buffer));
-    if (strcmp(buffer, "quit_ok") == 0) {
-        LOG_INFO("CommServer", "Clean shutdown");
+
+    // --- READ (Will now fail automatically after 1s) ---
+    // If read_line returns < 0, it means it timed out or failed
+    if (read_line(newsockfd, buffer, sizeof(buffer)) > 0) {
+        if (strcmp(buffer, "quit_ok") == 0) {
+            LOG_INFO("CommServer", "Clean shutdown acknowledged");
+        } else {
+            LOG_WARNING("CommServer", "Client replied with '%s' instead of 'quit_ok'", buffer);
+        }
+    } else {
+        // This runs if the client is dead/silent for > 1 second
+        LOG_WARNING("CommServer", "Client did not reply (Timeout). Closing anyway.");
     }
-    
+
     close(newsockfd);
     close(listen_sockfd);
     close(fdComm_FromBB);

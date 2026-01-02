@@ -33,6 +33,7 @@ int working_area ;
 int t_intial ;  
 bool running = true;
 bool repul =false;
+int mode =0;
 
 // sig_atomic_t ensures atomic access during signal handling
 volatile sig_atomic_t health_check = 0;
@@ -163,19 +164,8 @@ int main(int argc, char *argv[])
     FILE *reset_f = fopen("coordinates_log.log", "w");
     if (reset_f) fclose(reset_f);
     
-    pid_t watchdog_pid = -1;
-    int retries = 0;
-    while (watchdog_pid == -1 && retries < 10) {
-        sleep(1);
-        watchdog_pid = get_pid_by_name("Watchdog");
-        retries++;
-    }
-    
-    if (watchdog_pid == -1) {
-        LOG_WARNING("Drone","Could not find Watchdog! Exiting.\n");
-        return 1;
-    }
-    
+   pid_t watchdog_pid = -1;
+   int retries = 0;
 
     // Standardized exit codes
     #define USAGE_ERROR 64
@@ -196,6 +186,23 @@ int main(int argc, char *argv[])
     int fdFromBB= atoi(argv[2]);
     int fdToBB = atoi(argv[3]);
     int fdRepul = atoi(argv[4]);
+    mode = atoi(argv[5]);       //1,2,3
+
+    if (mode == 2 || mode ==3){
+        LOG_WARNING("Drone","Running in Client/Server mode, watchdog monitoring disabled.\n");
+    }else{
+        
+        while (watchdog_pid == -1 && retries < 10) {
+            sleep(1);
+            watchdog_pid = get_pid_by_name("Watchdog");
+            retries++;
+        }
+        
+        if (watchdog_pid == -1) {
+            LOG_WARNING("Drone","Could not find Watchdog! Exiting.\n");
+            return 1;
+        }
+    } 
 
     // Avoid process termination on broken pipe and print FD debug
     signal(SIGPIPE, SIG_IGN);
@@ -440,9 +447,11 @@ int main(int argc, char *argv[])
            
         
         // Checking alive signal
-        if (health_check) {
-            health_check = 0; // Reset flag
-            kill(watchdog_pid, SIGUSR2); // Send signal back to watchdog
+        if (mode != 2 || mode !=3){
+            if (health_check) {
+                health_check = 0; // Reset flag
+                kill(watchdog_pid, SIGUSR2); // Send signal back to watchdog
+            }
         }
         
         

@@ -25,6 +25,7 @@ int process_count = 0;
 volatile sig_atomic_t response_received = 0;
 volatile sig_atomic_t timeout_occurred = 0;
 volatile sig_atomic_t terminate_flag = 0;
+int mode=0;
 
 // Helper to log watchdog specific events
 void log_watchdog(const char *message) {
@@ -86,8 +87,14 @@ int load_processes() {
         if (sscanf(line, "Process: %s | PID: %d", name, &pid) == 2) {
             if (pid == my_pid) continue;
             if (strcmp(name, "Master") == 0) continue;
-            if (strcmp(name, "CommClient") == 0) continue;
-            if (strcmp(name, "CommServer") == 0) continue;
+            
+            // Explicitly ignore core processes ONLY if mode is 2 or 3
+            if (mode == 2 || mode == 3){
+                if (strcmp(name, "CommClient") == 0) continue;
+                if (strcmp(name, "CommServer") == 0) continue;
+                if (strcmp(name, "Drone") == 0) continue;
+                if (strcmp(name, "BlackBoard") == 0) continue;
+            }
             
             processes[process_count].pid = pid;
             strncpy(processes[process_count].name, name, 99);
@@ -145,7 +152,22 @@ void check_process(int index) {
 }
 
 // Main Watchdog Loop, sets up signal handlers and monitors child processes
-int main() {
+int main(int argc, char *argv[]) {
+   
+    // Standardized exit codes
+    #define USAGE_ERROR 64
+    #define OPEN_FAIL 66
+    #define EXEC_FAIL 127
+    #define RUNTIME_ERROR 70
+
+    if (argc < 2) {
+        fprintf(stderr, "Usage: %s <fd>\n", argv[0]);
+        return USAGE_ERROR;
+    }
+
+    //Convert the argument to an integer file descriptor
+    mode = atoi(argv[1]);
+
     // Setup Handlers
     struct sigaction sa;
     memset(&sa, 0, sizeof(sa));
@@ -171,13 +193,22 @@ int main() {
     }
     
     LOG_INFO("Watchdog","Monitoring %d processes. Check logs: tail -f watchdog_log.log\n", process_count);
-    
+
+
+
     int cycle = 0;
     while (1) {
         if (terminate_flag) {
             log_watchdog("Watchdog received termination signal, exiting.");
             break;  // Exit if termination signal received
         }
+
+        // Just sleep and restart the loop to keep the process alive.
+        if (mode == 2 || mode == 3) {
+            sleep(CHECK_INTERVAL);
+            continue;
+        }
+
         sleep(CHECK_INTERVAL);
         cycle++;
         load_processes();

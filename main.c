@@ -318,8 +318,11 @@ int main()
 
         char fdRepul_str[10];
         snprintf(fdRepul_str,sizeof(fdRepul_str),"%d",fdRepul[0]);
+
+        char operation[10];
+        snprintf(operation, sizeof(operation), "%d", mode);
         
-        execlp("./process_Drone", "./process_Drone",fdIn_str,fdFromBB_str,fdtoBB_str,fdRepul_str, (char *)NULL); // launch another process if condition met
+        execlp("./process_Drone", "./process_Drone",fdIn_str,fdFromBB_str,fdtoBB_str,fdRepul_str,operation, (char *)NULL); // launch another process if condition met
        
         // If exec fails
         LOG_ERRNO("Master,Dr fork","exec failed");
@@ -339,7 +342,10 @@ int main()
     }
 
     if (WD == 0) {
-        execl("./watchdog", "watchdog", NULL);
+        char operation[10];
+        snprintf(operation, sizeof(operation), "%d", mode);
+
+        execl("./watchdog", "watchdog", operation, NULL);
         LOG_ERRNO("Master,WD fork","Failed to start watchdog"); 
         exit(1); // Kill the child process immediately if execl fails
     }

@@ -280,6 +280,8 @@ int main(int argc, char *argv[]) {
         exit(0);
     }
 
+    signal(SIGPIPE, SIG_IGN); // Ignore broken pipe signals so we don't crash
+    
     while (running) {
 
         if (should_exit) {
@@ -505,7 +507,7 @@ int main(int argc, char *argv[]) {
                             LOG_INFO("BlackBoard","Treated remote drone as obstacle");
                         }
                     }
-                    LOG_INFO("BlackBoard","Received communication command: %s", sIn);
+                    LOG_INFO("BlackBoard","Received communication command: %s", strComm_ToBB);
                 } 
                 else { 
                     LOG_ERROR("BlackBoard", "Communication pipe closed unexpectedly");
