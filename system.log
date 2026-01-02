@@ -1,138 +1,590 @@
-[2026-01-02 17:35:44] [PID:12583] [INFO] [Input] process_In.c:53 (main) - Starting Input Process (PID=12583)
-[2026-01-02 17:35:45] [PID:12581] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
-[2026-01-02 17:35:45] [PID:12581] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
-[2026-01-02 17:35:45] [PID:12581] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
-[2026-01-02 17:35:45] [PID:12581] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
-[2026-01-02 17:35:45] [PID:12581] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
-[2026-01-02 17:35:45] [PID:12581] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
-[2026-01-02 17:35:45] [PID:12581] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
-[2026-01-02 17:35:45] [PID:12581] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
-[2026-01-02 17:35:45] [PID:12581] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
-[2026-01-02 17:35:45] [PID:12581] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
-[2026-01-02 17:35:45] [PID:12581] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
-[2026-01-02 17:35:45] [PID:12581] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
-[2026-01-02 17:35:45] [PID:12581] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
-[2026-01-02 17:35:45] [PID:12581] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
-[2026-01-02 17:35:45] [PID:12581] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
-[2026-01-02 17:35:45] [PID:12581] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
-[2026-01-02 17:35:46] [PID:12581] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
-[2026-01-02 17:35:46] [PID:12581] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
-[2026-01-02 17:35:46] [PID:12581] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
-[2026-01-02 17:35:46] [PID:12581] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
-[2026-01-02 17:35:46] [PID:12581] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
-[2026-01-02 17:35:46] [PID:12581] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
-[2026-01-02 17:35:46] [PID:12581] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
-[2026-01-02 17:35:46] [PID:12581] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
-[2026-01-02 17:35:46] [PID:12581] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
-[2026-01-02 17:35:46] [PID:12581] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
-[2026-01-02 17:35:46] [PID:12581] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
-[2026-01-02 17:35:46] [PID:12581] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
-[2026-01-02 17:35:46] [PID:12581] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
-[2026-01-02 17:35:46] [PID:12581] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
-[2026-01-02 17:35:46] [PID:12581] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
-[2026-01-02 17:35:46] [PID:12581] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
-[2026-01-02 17:35:46] [PID:12581] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
-[2026-01-02 17:35:46] [PID:12581] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
-[2026-01-02 17:35:46] [PID:12581] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
-[2026-01-02 17:35:46] [PID:12581] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
-[2026-01-02 17:35:46] [PID:12581] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
-[2026-01-02 17:35:46] [PID:12581] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
-[2026-01-02 17:35:46] [PID:12581] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
-[2026-01-02 17:35:46] [PID:12581] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
-[2026-01-02 17:35:46] [PID:12581] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
-[2026-01-02 17:35:46] [PID:12581] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
-[2026-01-02 17:35:46] [PID:12581] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
-[2026-01-02 17:35:46] [PID:12581] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
-[2026-01-02 17:35:46] [PID:12581] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
-[2026-01-02 17:35:46] [PID:12581] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
-[2026-01-02 17:35:46] [PID:12581] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
-[2026-01-02 17:35:46] [PID:12581] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
-[2026-01-02 17:35:47] [PID:12581] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
-[2026-01-02 17:35:47] [PID:12581] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
-[2026-01-02 17:35:47] [PID:12581] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
-[2026-01-02 17:35:47] [PID:12581] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
-[2026-01-02 17:35:47] [PID:12581] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
-[2026-01-02 17:35:47] [PID:12581] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
-[2026-01-02 17:35:47] [PID:12581] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
-[2026-01-02 17:35:47] [PID:12581] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
-[2026-01-02 17:35:47] [PID:12581] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
-[2026-01-02 17:35:47] [PID:12581] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
-[2026-01-02 17:35:47] [PID:12581] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
-[2026-01-02 17:35:47] [PID:12581] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
-[2026-01-02 17:35:47] [PID:12581] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
-[2026-01-02 17:35:47] [PID:12581] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
-[2026-01-02 17:35:47] [PID:12581] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
-[2026-01-02 17:35:47] [PID:12581] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
-[2026-01-02 17:35:47] [PID:12581] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
-[2026-01-02 17:35:47] [PID:12581] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
-[2026-01-02 17:35:47] [PID:12581] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
-[2026-01-02 17:35:47] [PID:12581] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
-[2026-01-02 17:35:47] [PID:12581] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
-[2026-01-02 17:35:47] [PID:12581] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
-[2026-01-02 17:35:47] [PID:12581] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
-[2026-01-02 17:35:47] [PID:12581] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
-[2026-01-02 17:35:47] [PID:12581] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
-[2026-01-02 17:35:47] [PID:12581] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
-[2026-01-02 17:35:47] [PID:12581] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
-[2026-01-02 17:35:47] [PID:12581] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
-[2026-01-02 17:35:47] [PID:12581] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
-[2026-01-02 17:35:47] [PID:12581] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
-[2026-01-02 17:35:48] [PID:12581] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
-[2026-01-02 17:35:48] [PID:12581] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
-[2026-01-02 17:35:48] [PID:12581] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
-[2026-01-02 17:35:48] [PID:12581] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
-[2026-01-02 17:35:48] [PID:12581] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
-[2026-01-02 17:35:48] [PID:12581] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
-[2026-01-02 17:35:48] [PID:12581] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
-[2026-01-02 17:35:48] [PID:12581] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
-[2026-01-02 17:35:48] [PID:12581] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
-[2026-01-02 17:35:48] [PID:12581] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
-[2026-01-02 17:35:48] [PID:12581] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
-[2026-01-02 17:35:48] [PID:12581] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
-[2026-01-02 17:35:48] [PID:12581] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
-[2026-01-02 17:35:48] [PID:12581] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
-[2026-01-02 17:35:48] [PID:12581] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
-[2026-01-02 17:35:48] [PID:12581] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
-[2026-01-02 17:35:48] [PID:12581] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
-[2026-01-02 17:35:48] [PID:12581] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
-[2026-01-02 17:35:48] [PID:12581] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
-[2026-01-02 17:35:48] [PID:12581] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
-[2026-01-02 17:35:48] [PID:12581] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
-[2026-01-02 17:35:48] [PID:12581] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
-[2026-01-02 17:35:48] [PID:12581] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
-[2026-01-02 17:35:48] [PID:12581] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
-[2026-01-02 17:35:48] [PID:12581] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
-[2026-01-02 17:35:48] [PID:12581] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
-[2026-01-02 17:35:48] [PID:12581] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
-[2026-01-02 17:35:48] [PID:12581] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
-[2026-01-02 17:35:48] [PID:12581] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
-[2026-01-02 17:35:48] [PID:12581] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
-[2026-01-02 17:35:48] [PID:12581] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
-[2026-01-02 17:35:48] [PID:12581] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
-[2026-01-02 17:35:49] [PID:12581] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
-[2026-01-02 17:35:49] [PID:12581] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
-[2026-01-02 17:35:49] [PID:12581] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
-[2026-01-02 17:35:49] [PID:12581] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
-[2026-01-02 17:35:49] [PID:12581] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
-[2026-01-02 17:35:49] [PID:12581] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
-[2026-01-02 17:35:49] [PID:12581] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
-[2026-01-02 17:35:49] [PID:12581] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
-[2026-01-02 17:35:49] [PID:12581] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
-[2026-01-02 17:35:49] [PID:12581] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
-[2026-01-02 17:35:49] [PID:12581] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
-[2026-01-02 17:35:49] [PID:12581] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
-[2026-01-02 17:35:49] [PID:12581] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
-[2026-01-02 17:35:49] [PID:12581] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
-[2026-01-02 17:35:49] [PID:12581] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
-[2026-01-02 17:35:49] [PID:12581] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
-[2026-01-02 17:35:49] [PID:12581] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
-[2026-01-02 17:35:49] [PID:12581] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
-[2026-01-02 17:35:49] [PID:12581] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
-[2026-01-02 17:35:49] [PID:12581] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
-[2026-01-02 17:35:49] [PID:12581] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
-[2026-01-02 17:35:49] [PID:12581] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
-[2026-01-02 17:35:49] [PID:12581] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
-[2026-01-02 17:35:49] [PID:12581] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
-[2026-01-02 17:35:49] [PID:12581] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
-[2026-01-02 17:35:49] [PID:12581] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
-[2026-01-02 17:35:49] [PID:12561] [INFO] [Drone] process_Drone.c:270 (main) - Received key input: q
+[2026-01-02 18:03:30] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:173 (main) - Starting BlackBoard Process (PID=3119)
+[2026-01-02 18:03:30] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:30] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:30] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:30] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:30] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:30] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:30] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:30] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:30] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:30] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:30] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:30] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:30] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:30] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:30] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:30] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:30] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:30] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:30] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:30] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:30] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:30] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:30] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:30] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:31] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:31] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:31] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:31] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:31] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:31] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:31] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:31] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:31] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:31] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:31] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:31] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:31] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:31] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:31] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:31] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:31] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:31] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:31] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:31] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:31] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:31] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:31] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:31] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:31] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:31] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:31] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:31] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:31] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:31] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:31] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:31] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:31] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:31] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:32] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:32] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:32] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:32] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:32] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:32] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:32] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:32] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:32] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:32] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:32] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:32] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:32] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:32] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:32] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:32] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:32] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:32] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:32] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:32] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:32] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:32] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:32] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:32] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:32] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:32] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:32] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:32] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:32] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:32] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:32] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:32] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:33] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:33] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:33] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:33] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:33] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:33] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:33] [PID:3106] [INFO] [Drone] process_Drone.c:270 (main) - Received key input: f
+[2026-01-02 18:03:33] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:33] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:33] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:33] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:33] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:33] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:33] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:33] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:33] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:33] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:33] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:33] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:33] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:33] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:33] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:33] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:33] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:33] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:33] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:33] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:33] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:33] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:33] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:33] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:33] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:33] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:33] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:33] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:34] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:34] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:34] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:34] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:34] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:34] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:34] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:34] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:34] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:34] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:34] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:34] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:34] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:34] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:34] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:34] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:34] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:34] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:34] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:34] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:34] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:34] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:34] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:34] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:34] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:34] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:34] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:34] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:34] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:34] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:34] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:34] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:35] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:35] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:35] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:35] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:35] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:35] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:35] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:35] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:35] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:35] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:35] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:35] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:35] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:35] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:35] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:35] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:35] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:35] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:35] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:35] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:35] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:35] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:35] [PID:3106] [INFO] [Drone] process_Drone.c:270 (main) - Received key input: s
+[2026-01-02 18:03:35] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:35] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:35] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:35] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:35] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:35] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:35] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:35] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:35] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:35] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:36] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:36] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:36] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:36] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:36] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:36] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:36] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:36] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:36] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:36] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:36] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:36] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:36] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:36] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:36] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:36] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:36] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:36] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:36] [PID:3106] [INFO] [Drone] process_Drone.c:270 (main) - Received key input: s
+[2026-01-02 18:03:36] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:36] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:36] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:36] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:36] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:36] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:36] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:36] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:36] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:36] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:36] [PID:3106] [INFO] [Drone] process_Drone.c:270 (main) - Received key input: s
+[2026-01-02 18:03:36] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:36] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:37] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:37] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:37] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:37] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:37] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:37] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:37] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:37] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:37] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:37] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:37] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:37] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:37] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:37] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:37] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:37] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:37] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:37] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:37] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:37] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:37] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:37] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:37] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:37] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:37] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:37] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:37] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:37] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:37] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:37] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:37] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:37] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:38] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:38] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:38] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:38] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:38] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:38] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:38] [PID:3106] [INFO] [Drone] process_Drone.c:270 (main) - Received key input: e
+[2026-01-02 18:03:38] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:38] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:38] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:38] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:38] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:38] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:38] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:38] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:38] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:38] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:38] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:38] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:38] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:38] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:38] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:38] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:38] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:38] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:38] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:38] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:38] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:38] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:38] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:38] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:38] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:38] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:39] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:39] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:39] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:39] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:39] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:39] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:39] [PID:3106] [INFO] [Drone] process_Drone.c:270 (main) - Received key input: e
+[2026-01-02 18:03:39] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:39] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:39] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:39] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:39] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:39] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:39] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:39] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:39] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:39] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:39] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:39] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:39] [PID:3106] [INFO] [Drone] process_Drone.c:270 (main) - Received key input: c
+[2026-01-02 18:03:39] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:39] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:39] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:39] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:39] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:39] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:39] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:39] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:39] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:39] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:39] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:39] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:40] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:40] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:40] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:40] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:40] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:40] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:40] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:40] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:40] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:40] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:40] [PID:3106] [INFO] [Drone] process_Drone.c:299 (main) - Received repulsion inputs
+[2026-01-02 18:03:40] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:40] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:40] [PID:3106] [INFO] [Drone] process_Drone.c:299 (main) - Received repulsion inputs
+[2026-01-02 18:03:40] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:40] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:40] [PID:3106] [INFO] [Drone] process_Drone.c:299 (main) - Received repulsion inputs
+[2026-01-02 18:03:40] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:40] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:40] [PID:3106] [INFO] [Drone] process_Drone.c:299 (main) - Received repulsion inputs
+[2026-01-02 18:03:40] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:40] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:40] [PID:3106] [INFO] [Drone] process_Drone.c:299 (main) - Received repulsion inputs
+[2026-01-02 18:03:40] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:40] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:40] [PID:3106] [INFO] [Drone] process_Drone.c:299 (main) - Received repulsion inputs
+[2026-01-02 18:03:40] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:40] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:40] [PID:3106] [INFO] [Drone] process_Drone.c:299 (main) - Received repulsion inputs
+[2026-01-02 18:03:40] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:40] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:40] [PID:3106] [INFO] [Drone] process_Drone.c:299 (main) - Received repulsion inputs
+[2026-01-02 18:03:40] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:40] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:40] [PID:3106] [INFO] [Drone] process_Drone.c:299 (main) - Received repulsion inputs
+[2026-01-02 18:03:40] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:40] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:40] [PID:3106] [INFO] [Drone] process_Drone.c:299 (main) - Received repulsion inputs
+[2026-01-02 18:03:40] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:40] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:40] [PID:3106] [INFO] [Drone] process_Drone.c:299 (main) - Received repulsion inputs
+[2026-01-02 18:03:40] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:40] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:41] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:41] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:41] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:41] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:41] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:41] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:41] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:41] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:41] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:41] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:41] [PID:3106] [INFO] [Drone] process_Drone.c:299 (main) - Received repulsion inputs
+[2026-01-02 18:03:41] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:41] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:41] [PID:3106] [INFO] [Drone] process_Drone.c:299 (main) - Received repulsion inputs
+[2026-01-02 18:03:41] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:41] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:41] [PID:3106] [INFO] [Drone] process_Drone.c:299 (main) - Received repulsion inputs
+[2026-01-02 18:03:41] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:41] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:41] [PID:3106] [INFO] [Drone] process_Drone.c:299 (main) - Received repulsion inputs
+[2026-01-02 18:03:41] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:41] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:41] [PID:3106] [INFO] [Drone] process_Drone.c:299 (main) - Received repulsion inputs
+[2026-01-02 18:03:41] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:41] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:41] [PID:3106] [INFO] [Drone] process_Drone.c:299 (main) - Received repulsion inputs
+[2026-01-02 18:03:41] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:41] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:41] [PID:3106] [INFO] [Drone] process_Drone.c:299 (main) - Received repulsion inputs
+[2026-01-02 18:03:41] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:41] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:41] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:41] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:41] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:41] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:41] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:41] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:41] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:41] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:41] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:41] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:41] [PID:3106] [INFO] [Drone] process_Drone.c:299 (main) - Received repulsion inputs
+[2026-01-02 18:03:42] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:42] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:42] [PID:3106] [INFO] [Drone] process_Drone.c:299 (main) - Received repulsion inputs
+[2026-01-02 18:03:42] [PID:3106] [INFO] [Drone] process_Drone.c:270 (main) - Received key input: c
+[2026-01-02 18:03:42] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:42] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:42] [PID:3106] [INFO] [Drone] process_Drone.c:299 (main) - Received repulsion inputs
+[2026-01-02 18:03:42] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:42] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:42] [PID:3106] [INFO] [Drone] process_Drone.c:299 (main) - Received repulsion inputs
+[2026-01-02 18:03:42] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:42] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:42] [PID:3106] [INFO] [Drone] process_Drone.c:299 (main) - Received repulsion inputs
+[2026-01-02 18:03:42] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:42] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:42] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:42] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:42] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:42] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:42] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:42] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:42] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:42] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:42] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:42] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:42] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:42] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:42] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:42] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:42] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:42] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:42] [PID:3106] [INFO] [Drone] process_Drone.c:270 (main) - Received key input: s
+[2026-01-02 18:03:42] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:42] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:42] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:42] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:42] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:42] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:43] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:43] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:43] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:43] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:43] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:43] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:43] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:43] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:43] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:43] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:43] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:43] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:43] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:43] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:43] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:43] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:43] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:43] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:43] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:43] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:43] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:43] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:43] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:43] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:43] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:43] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:43] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:43] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:43] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:43] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:43] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:43] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:44] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:44] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:44] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:44] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:44] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:44] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:44] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:44] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:44] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:44] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:44] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:44] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:44] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:44] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:44] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:44] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:44] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:44] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:44] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:44] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:44] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:44] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:44] [PID:3106] [INFO] [Drone] process_Drone.c:270 (main) - Received key input: p
+[2026-01-02 18:03:44] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:380 (main) - Received input command: p
+[2026-01-02 18:03:44] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:44] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:46] [PID:3106] [INFO] [Drone] process_Drone.c:270 (main) - Received key input:  
+[2026-01-02 18:03:46] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:380 (main) - Received input command: 
+[2026-01-02 18:03:46] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:46] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:46] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:46] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:46] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:46] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:46] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:46] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:46] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:46] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:46] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:46] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:46] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:46] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:46] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:46] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:46] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:46] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:46] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:46] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:46] [PID:3106] [INFO] [Drone] process_Drone.c:270 (main) - Received key input: d
+[2026-01-02 18:03:46] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:46] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:46] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:46] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:47] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:47] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:47] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:47] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:47] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:47] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:47] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:47] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:47] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:47] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:47] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:47] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:47] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:47] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:47] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:47] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:47] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:47] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:47] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:47] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:47] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:47] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:47] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:47] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:47] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:47] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:47] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:47] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:47] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:47] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:47] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:47] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:48] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:48] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:48] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:48] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:48] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:48] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:48] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:48] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:48] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:48] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:48] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:48] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:48] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:48] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:48] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:48] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:48] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:48] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:48] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:48] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:48] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:48] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:48] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:48] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:48] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:48] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:48] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:380 (main) - Received input command: q
+[2026-01-02 18:03:48] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:397 (main) - Received drone coordinates
+[2026-01-02 18:03:48] [PID:3119] [INFO] [BlackBoard] BlackBoard.c:404 (main) - Sent drone coordinates to Communication Client
+[2026-01-02 18:03:48] [PID:3106] [INFO] [Drone] process_Drone.c:270 (main) - Received key input: q

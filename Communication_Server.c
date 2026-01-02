@@ -18,7 +18,7 @@
 #define M_PI 3.14159265358979323846
 #endif
 
-// Transformation parameters
+// Transformation parameters, sets values
 #define VIRTUAL_X0 0.0
 #define VIRTUAL_Y0 0.0
 #define VIRTUAL_ALFA 0.0 // Angle in radians

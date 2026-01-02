@@ -86,6 +86,8 @@ int load_processes() {
         if (sscanf(line, "Process: %s | PID: %d", name, &pid) == 2) {
             if (pid == my_pid) continue;
             if (strcmp(name, "Master") == 0) continue;
+            if (strcmp(name, "CommClient") == 0) continue;
+            if (strcmp(name, "CommServer") == 0) continue;
             
             processes[process_count].pid = pid;
             strncpy(processes[process_count].name, name, 99);

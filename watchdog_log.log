@@ -1,3 +1,13 @@
-[Fri Jan  2 17:35:49 2026] All Processes terminated by Master Process
-[Fri Jan  2 17:35:49 2026] --- Health Check Cycle #1 ---
-[Fri Jan  2 17:35:49 2026] Checking 'CommServer' (PID=12563)...
+[Fri Jan  2 18:03:38 2026] --- Health Check Cycle #1 ---
+[Fri Jan  2 18:03:38 2026] Checking 'Drone' (PID=3106)...
+[Fri Jan  2 18:03:38 2026] ✓ 'Drone' (PID=3106) is ALIVE
+[Fri Jan  2 18:03:38 2026] Checking 'Input' (PID=3118)...
+[Fri Jan  2 18:03:38 2026] ✓ 'Input' (PID=3118) is ALIVE
+[Fri Jan  2 18:03:38 2026] Checking 'BlackBoard' (PID=3119)...
+[Fri Jan  2 18:03:38 2026] ✓ 'BlackBoard' (PID=3119) is ALIVE
+[Fri Jan  2 18:03:48 2026] All Processes terminated by Master Process
+[Fri Jan  2 18:03:48 2026] --- Health Check Cycle #2 ---
+[Fri Jan  2 18:03:48 2026] Process 'Drone' (PID=3106) no longer exists
+[Fri Jan  2 18:03:48 2026] Process 'Input' (PID=3118) no longer exists
+[Fri Jan  2 18:03:48 2026] Process 'BlackBoard' (PID=3119) no longer exists
+[Fri Jan  2 18:03:48 2026] All processes dead. Watchdog exiting.
