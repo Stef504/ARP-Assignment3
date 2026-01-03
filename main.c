@@ -290,7 +290,7 @@ int main()
     {
        
         // Child process
-        printf("Process Ta: PID = %d\n", getpid()); //getpid gets the file id
+        printf("Process Drone: PID = %d\n", getpid()); //getpid gets the file id
 
         // Close the read end, as we write to bb
         close(fdToBB[0]);
@@ -506,6 +506,26 @@ int main()
         }
     }
 
+    pid_t input_pid = -1;
+    pid_t blackboard_pid = -1;
+    int retries = 0;
+
+    while (input_pid == -1 && blackboard_pid == -1 && retries < 10) {
+        sleep(1);
+        input_pid = get_pid_by_name("Input");
+        blackboard_pid = get_pid_by_name("BlackBoard");
+        // --- CORRECT PRINTF SYNTAX ---
+        //printf("[DEBUG] Retry %d: Input PID = %d, BlackBoard PID = %d\n", 
+          //     retries, (int)input_pid, (int)blackboard_pid);
+        // -----------------------------
+
+        retries++;
+    }
+    
+    if (input_pid == -1 || blackboard_pid == -1) {
+        LOG_WARNING("Input or Blackboard","Could not find konsoled process! Exiting.\n");
+        return 1;
+    }
 
     //closing all pipes
     // Close Input Pipes
@@ -542,25 +562,33 @@ int main()
         if (wpid == Dr) {
             fprintf(stderr, "MASTER: Drone (PID %d) has stopped. Shutting down system...\n", wpid);
             
+            
             // 1. Terminate everyone including Watchdog
-            if (Comm > 0) kill(Comm, SIGTERM);
-            if (WD > 0) kill(WD, SIGTERM); 
+            if (WD > 0) kill(WD, SIGTERM);
+            if (input_pid > 0) kill(input_pid, SIGTERM);
+            if (blackboard_pid > 0) kill(blackboard_pid, SIGTERM);
+            if (Comm > 0) kill(Comm, SIGTERM); 
+            if (Ob > 0) kill(Ob, SIGTERM);
+            if (Ta > 0) kill(Ta, SIGTERM);
+            
+            usleep(500000); // Give some time to processes to exit gracefully
+
             if (BB > 0) kill(BB, SIGTERM);
             if (In > 0) kill(In, SIGTERM);
-            if (Ob > 0) kill(Ob, SIGTERM);
-            if (Ta > 0) kill(Ta, SIGTERM);         
-            
             // 2. Grace period
             sleep(1); 
             
             // 3. Force Kill
+            if (WD > 0) kill(WD, SIGKILL);
+            if (input_pid > 0) kill(input_pid, SIGKILL);
+            if (blackboard_pid > 0) kill(blackboard_pid, SIGKILL);
             if (Comm > 0) kill(Comm, SIGKILL);
-            if (BB > 0) kill(BB, SIGKILL);
-            if (In > 0) kill(In, SIGKILL);
             if (Ob > 0) kill(Ob, SIGKILL);
             if (Ta > 0) kill(Ta, SIGKILL);
-            if (WD > 0) kill(WD, SIGKILL);
-            
+
+           usleep(500000); // Allow time for kills to register
+            if (BB > 0) kill(BB, SIGKILL);
+            if (In > 0) kill(In, SIGKILL);
             
             break; // Break the loop to finish up
         }

@@ -292,15 +292,16 @@ int main(int argc, char *argv[]) {
     signal(SIGPIPE, SIG_IGN); // Ignore broken pipe signals so we don't crash
     
     while (running) {
-
+ 
         if (should_exit) {
             LOG_INFO("BlackBoard","Termination signal received. Exiting main loop.\n");
             break;
-        }    
+        }
         
         int ch = wgetch(win); // poll window for keys (returns KEY_RESIZE)
         sIn[0]='\0';
         repulsion_sent = false;
+        char input_key= sIn[0];
 
         if (ch == KEY_RESIZE) {
             // Store old window dimensions for scaling
@@ -381,18 +382,30 @@ int main(int argc, char *argv[]) {
         if (retval == -1) break;
         else if (retval > 0) {
             
+            // Receiving commands from Input process
             if (FD_ISSET(fdIn_BB, &readfds)) {
                 // Clear strIn before reading new data
                 memset(strIn, 0, sizeof(strIn)); 
                 ssize_t bytes = read(fdIn_BB, strIn, sizeof(strIn)-1);
-                
                 if (bytes > 0) {
                     sscanf(strIn, "%1s", sIn); 
                     LOG_INFO("BlackBoard","Received input command: %s", sIn);
-                } 
-                else { 
+                } else if (bytes == 0) {
+                    // --- FIX: Handle Clean Closure ---
+                    // If we previously received 'q', this is expected.
+                    // Even if we didn't, if Input closes, we should just stop.
+                    LOG_INFO("BlackBoard", "Input process disconnected (Pipe Closed).");
+                    
+                    // Close our end so select doesn't loop infinitely on the closed pipe
+                    close(fdIn_BB); 
+                    FD_CLR(fdIn_BB, &readfds); 
+                    fdIn_BB = -1; // Mark as invalid
+                    
+                }
+                else { // bytes < 0 (Real Error)
                     LOG_ERROR("BlackBoard", "Input pipe closed unexpectedly");
-                    running = false; } // Pipe closed
+                    running = false; 
+                } // Pipe closed
             }
 
             // Receiving coordinates from drone pipe
@@ -542,9 +555,10 @@ int main(int argc, char *argv[]) {
             }
         }                
 
-        char input_key= sIn[0];
+        //char input_key= sIn[0];
         // Quit the game
         if (input_key=='q'){
+            LOG_INFO("BlackBoard","Quit command received. Exiting main loop.\n");
             running = false;
         }
 

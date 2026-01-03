@@ -37,6 +37,7 @@ void handle_terminate(int signo) {
 
 int main(int argc, char *argv[]) 
 {
+
     // Setup signal handling FIRST
     struct sigaction sa;
     memset(&sa, 0, sizeof(sa));
@@ -126,7 +127,9 @@ int main(int argc, char *argv[])
                 if (c == 'q') {
                 // --- 3. RESTORE TERMINAL ---
                 // This is critical, or the terminal will be "broken" after
+                sleep(1); // Give some time for the 'q' to be processed
                 tcsetattr(STDIN_FILENO, TCSANOW, &old_tio);
+                LOG_INFO("Input", "Exiting Input Process from q command.");
                 close(fdIn_BB);
                 close(fdIn);
                 exit(EXIT_SUCCESS);
