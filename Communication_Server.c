@@ -208,7 +208,7 @@ int main(int argc, char *argv[]) {
 
         // Check for termination signal from master
         if (should_exit) {
-            LOG_INFO("Input", "Termination signal received. Exiting main loop.");
+            LOG_INFO("CommServer", "Termination signal received. Exiting main loop.");
             break;
         }
         loop_count++;
@@ -259,7 +259,7 @@ int main(int argc, char *argv[]) {
         if (read_line(newsockfd, buffer, sizeof(buffer)) < 0 || strcmp(buffer, "drone_ok") != 0) {
             // Check for termination signal from master
             if (should_exit) {
-                LOG_INFO("Input", "Termination signal received. Exiting main loop.");
+                LOG_INFO("COmmServer", "Termination signal received. Exiting main loop.");
                 break;
             }
             
@@ -278,7 +278,7 @@ int main(int argc, char *argv[]) {
         if (read_line(newsockfd, buffer, sizeof(buffer)) < 0) {
             // Check for termination signal from master
             if (should_exit) {
-                LOG_INFO("Input", "Termination signal received. Exiting main loop.");
+                LOG_INFO("CommServer", "Termination signal received. Exiting main loop.");
                 break;
             }
                 

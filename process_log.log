@@ -1,7 +1,6 @@
-Process: Master | PID: 13639
-Process: Drone | PID: 13659
-Process: Watchdog | PID: 13660
-Process: Targets | PID: 13662
-Process: Obstacles | PID: 13661
-Process: BlackBoard | PID: 13676
-Process: Input | PID: 13679
+Process: Master | PID: 29180
+Process: Drone | PID: 29252
+Process: Watchdog | PID: 29253
+Process: CommClient | PID: 29254
+Process: Input | PID: 29278
+Process: BlackBoard | PID: 29280

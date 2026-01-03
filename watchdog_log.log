@@ -1,4 +1,2 @@
-[Sat Jan  3 15:38:21 2026] All Processes terminated by Master Process
-[Sat Jan  3 15:38:21 2026] --- Health Check Cycle #1 ---
-[Sat Jan  3 15:38:21 2026] Process 'Drone' (PID=13659) no longer exists
-[Sat Jan  3 15:38:21 2026] Checking 'Targets' (PID=13662)...
+[Sat Jan  3 20:52:52 2026] All Processes terminated by Master Process
+[Sat Jan  3 20:52:52 2026] Watchdog received termination signal, exiting.

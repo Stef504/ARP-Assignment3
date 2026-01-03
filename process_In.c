@@ -132,6 +132,8 @@ int main(int argc, char *argv[])
                 LOG_INFO("Input", "Exiting Input Process from q command.");
                 close(fdIn_BB);
                 close(fdIn);
+
+                logger_close();
                 exit(EXIT_SUCCESS);
             }
         }

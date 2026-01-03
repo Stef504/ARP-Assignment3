@@ -173,7 +173,8 @@ int main(int argc, char *argv[]) {
     memset(&sa, 0, sizeof(sa));
     sa.sa_handler = handle_terminate;
     sa.sa_flags =0; // Restart interrupted syscalls
-    sigemptyset(&sa.sa_mask);
+    sigemptyset(&sa.sa_mask); //redundant but safe, 
+    // While I am running this signal handler function, please block these other signals so they don't interrupt me.
     sigaction(SIGTERM, &sa, NULL);
     
     // LOG SELF immediately
@@ -423,15 +424,6 @@ int main(int argc, char *argv[]) {
                        //In networked mode, send MY drone position to communication process
                         if (mode != 1) {
                             char comm_msg[100];
-                            // --- SAFE WRITE ---
-                            // Ignore SIGPIPE for this specific call so we don't crash unexpectedly,
-                            // but handle the error if the pipe is broken.
-                            struct sigaction new_actn, old_actn;
-                            new_actn.sa_handler = SIG_IGN;
-                            sigemptyset(&new_actn.sa_mask);
-                            new_actn.sa_flags = 0;
-                            sigaction(SIGPIPE, &new_actn, &old_actn); // Ignore SIGPIPE temporarily
-
                             if (write(fdComm_FromBB, comm_msg, strlen(comm_msg) + 1) == -1) {
                                 // If error is Broken Pipe, the Server is dead.
                                 if (errno == EPIPE) {
@@ -439,8 +431,6 @@ int main(int argc, char *argv[]) {
                                     // Optional: running = false; // Exit if you want BB to die when Server dies
                                 }
                             }
-                            
-                            sigaction(SIGPIPE, &old_actn, NULL); // Restore original handler
                             
                             LOG_INFO("BlackBoard","Sent drone coordinates to Communication Client");
                         } 

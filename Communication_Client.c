@@ -180,7 +180,7 @@ int main(int argc, char *argv[]) {
     
     while (running) {
         if (should_exit) {
-            LOG_INFO("Input", "Termination signal received. Exiting main loop.");
+            LOG_INFO("CommClient", "Termination signal received. Exiting main loop.");
             break;
         }
 
