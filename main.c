@@ -177,6 +177,12 @@ int main()
         exit(1);
     }
 
+    // Set communication pipes to non-blocking for proper async operation
+    fcntl(fdComm_ToBB[0], F_SETFL, O_NONBLOCK);
+    fcntl(fdComm_ToBB[1], F_SETFL, O_NONBLOCK);
+    fcntl(fdComm_FromBB[0], F_SETFL, O_NONBLOCK);
+    fcntl(fdComm_FromBB[1], F_SETFL, O_NONBLOCK);
+
     sleep(2);
 
     //.....BlackBoard.....

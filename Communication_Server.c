@@ -204,6 +204,10 @@ int main(int argc, char *argv[]) {
     bool running = true;
     int loop_count = 0;
     
+    // Keep track of last known position for non-blocking reads
+    Coord last_local = {window_width / 2.0f, window_height / 2.0f};  // Default center
+    bool has_position = false;
+    
     while (running) {
 
         // Check for termination signal from master
@@ -222,25 +226,22 @@ int main(int argc, char *argv[]) {
         // Read MY drone position from BlackBoard (format: "x.x,y.y")
         char my_pos[50];
         ssize_t bytes = read(fdComm_FromBB, my_pos, sizeof(my_pos) - 1);
-        if (bytes <= 0) {
-            if (errno == EAGAIN || errno == EWOULDBLOCK) {
-                usleep(10000);
-                continue;
+        if (bytes > 0) {
+            my_pos[bytes] = '\0';
+            // Parse local coordinates (format: "x.x,y.y")
+            if (sscanf(my_pos, "%f,%f", &last_local.x, &last_local.y) == 2) {
+                has_position = true;
+            } else {
+                LOG_ERROR("CommServer", "Invalid format from BlackBoard: '%s'", my_pos);
             }
+        } else if (bytes < 0 && errno != EAGAIN && errno != EWOULDBLOCK) {
             LOG_ERROR("CommServer", "Failed to read from BlackBoard");
             break;
         }
-        my_pos[bytes] = '\0';
-        
-        // Parse local coordinates (format: "x.x,y.y")
-        Coord local;
-        if (sscanf(my_pos, "%f,%f", &local.x, &local.y) != 2) {
-            LOG_ERROR("CommServer", "Invalid format from BlackBoard: '%s'", my_pos);
-            continue;
-        }
+        // If EAGAIN, just use last_local
         
         // Convert to virtual coordinates
-        Coord virtual = local_to_virtual(local, window_width, window_height);
+        Coord virtual = local_to_virtual(last_local, window_width, window_height);
         
         // Send position in virtual coordinates (format: "x.x y.y" - note space, not comma)
         snprintf(buffer, sizeof(buffer), "%.1f %.1f", virtual.x, virtual.y);
@@ -251,7 +252,7 @@ int main(int argc, char *argv[]) {
         
         if (loop_count % 20 == 0) {
             LOG_INFO("CommServer", "Sent drone pos: local(%.1f,%.1f) -> virtual(%.1f,%.1f)",
-                   local.x, local.y, virtual.x, virtual.y);
+                   last_local.x, last_local.y, virtual.x, virtual.y);
         }
         
 

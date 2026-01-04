@@ -528,13 +528,12 @@ int main(int argc, char *argv[]) {
 
                         // In SERVER mode only, treat client drone position as obstacle
                         if (mode == 2){
-                            // Store in array
-                            obstacles[obs_head].x = remote_drone.x;
-                            obstacles[obs_head].y = remote_drone.y;
-                            obs_head = (obs_head + 1) % MAX_ITEMS;
-                            if (obs_count < MAX_ITEMS) obs_count++;
+                            // Use slot 0 for remote drone obstacle (single moving obstacle)
+                            obstacles[0].x = remote_drone.x;
+                            obstacles[0].y = remote_drone.y;
+                            if (obs_count == 0) obs_count = 1;  // Ensure we have exactly 1 obstacle
 
-                            LOG_INFO("BlackBoard","Treated remote drone as obstacle");
+                            LOG_INFO("BlackBoard","Treated remote drone as obstacle at (%d,%d)", remote_drone.x, remote_drone.y);
                         }
                     }
                     LOG_INFO("BlackBoard","Received communication command: %s", strComm_ToBB);

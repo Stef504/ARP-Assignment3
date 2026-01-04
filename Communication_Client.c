@@ -68,7 +68,15 @@ int read_line(int sockfd, char *buffer, int max_len) {
     char c;
     while (i < max_len - 1) {
         int n = read(sockfd, &c, 1);
-        if (n <= 0) return -1;
+        if (n < 0) {
+            if (errno == EAGAIN || errno == EWOULDBLOCK) {
+                // Timeout - check if we should exit
+                if (should_exit) return -2;  // Special code for termination
+                continue;  // Otherwise retry
+            }
+            return -1;  // Real error
+        }
+        if (n == 0) return -1;  // Connection closed
         if (c == '\n') break;
         buffer[i++] = c;
     }
@@ -141,12 +149,27 @@ int main(int argc, char *argv[]) {
     
     LOG_INFO("CommClient", "Connected to server!");
     
+    // Set socket timeout so we can check for termination signals
+    struct timeval tv;
+    tv.tv_sec = 1;  // 1 second timeout
+    tv.tv_usec = 0;
+    setsockopt(sockfd, SOL_SOCKET, SO_RCVTIMEO, (const char*)&tv, sizeof tv);
+    
     char buffer[256];
     int window_width, window_height;
     
     // PROTOCOL: Initial handshake
     // 1. Wait for "ok", send "ook"
-    if (read_line(sockfd, buffer, sizeof(buffer)) < 0 || strcmp(buffer, "ServerConnected") != 0) {
+    int ret;
+    while ((ret = read_line(sockfd, buffer, sizeof(buffer))) == -2) {
+        // Keep waiting but check for termination
+        if (should_exit) {
+            LOG_INFO("CommClient", "Termination during handshake, exiting.");
+            close(sockfd);
+            return 0;
+        }
+    }
+    if (ret < 0 || strcmp(buffer, "ServerConnected") != 0) {
         LOG_ERROR("CommClient", "Protocol error: expected 'ServerConnected', got '%s'", buffer);
         close(sockfd);
         return 1;
@@ -156,7 +179,14 @@ int main(int argc, char *argv[]) {
     LOG_INFO("CommClient", "Sent connection acknowledgment to server");
     
     // 2. Wait for "size w h", send "sok"
-    if (read_line(sockfd, buffer, sizeof(buffer)) < 0) {
+    while ((ret = read_line(sockfd, buffer, sizeof(buffer))) == -2) {
+        if (should_exit) {
+            LOG_INFO("CommClient", "Termination during handshake, exiting.");
+            close(sockfd);
+            return 0;
+        }
+    }
+    if (ret < 0) {
         LOG_ERROR("CommClient", "Read error on size");
         close(sockfd);
         return 1;
@@ -178,6 +208,9 @@ int main(int argc, char *argv[]) {
     bool running = true;
     int loop_count = 0;
     
+    // Keep track of last known position for non-blocking reads
+    Coord last_local = {window_width / 2.0f, window_height / 2.0f};  // Default center
+    
     while (running) {
         if (should_exit) {
             LOG_INFO("CommClient", "Termination signal received. Exiting main loop.");
@@ -187,13 +220,18 @@ int main(int argc, char *argv[]) {
         loop_count++;
         
         // a) Wait for "drone" or "q" command
-        if (read_line(sockfd, buffer, sizeof(buffer)) < 0) {
+        int ret = read_line(sockfd, buffer, sizeof(buffer));
+        if (ret == -2) {
+            LOG_INFO("CommClient", "Termination during read, exiting.");
+            break;
+        }
+        if (ret < 0) {
             LOG_ERROR("CommClient", "Read error");
             break;
         }
         
         // Check for quit signal
-        if (strcmp(buffer, "quit_ok") == 0) {
+        if (strcmp(buffer, "quit") == 0) {
             LOG_INFO("CommClient", "Received quit signal");
             write_line(sockfd, "quit_ok");
             running = false;
@@ -206,7 +244,12 @@ int main(int argc, char *argv[]) {
         }
         
         // Wait for server position in virtual coordinates (format: "x.x y.y")
-        if (read_line(sockfd, buffer, sizeof(buffer)) < 0) {
+        ret = read_line(sockfd, buffer, sizeof(buffer));
+        if (ret == -2) {
+            LOG_INFO("CommClient", "Termination during read, exiting.");
+            break;
+        }
+        if (ret < 0) {
             LOG_ERROR("CommClient", "Read error on server position");
             break;
         }
@@ -240,7 +283,12 @@ int main(int argc, char *argv[]) {
         }
         
         // b) Wait for "obst" command
-        if (read_line(sockfd, buffer, sizeof(buffer)) < 0) {
+        ret = read_line(sockfd, buffer, sizeof(buffer));
+        if (ret == -2) {
+            LOG_INFO("CommClient", "Termination during read, exiting.");
+            break;
+        }
+        if (ret < 0) {
             LOG_ERROR("CommClient", "Read error");
             break;
         }
@@ -253,25 +301,20 @@ int main(int argc, char *argv[]) {
         // Read MY drone position from BlackBoard (format: "x.x,y.y")
         char my_pos[50];
         ssize_t bytes = read(fdComm_FromBB, my_pos, sizeof(my_pos) - 1);
-        if (bytes <= 0) {
-            if (errno == EAGAIN || errno == EWOULDBLOCK) {
-                usleep(10000);
-                continue;
+        if (bytes > 0) {
+            my_pos[bytes] = '\0';
+            // Parse local coordinates (format: "x.x,y.y")
+            if (sscanf(my_pos, "%f,%f", &last_local.x, &last_local.y) != 2) {
+                LOG_ERROR("CommClient", "Invalid format from BlackBoard: '%s'", my_pos);
             }
+        } else if (bytes < 0 && errno != EAGAIN && errno != EWOULDBLOCK) {
             LOG_ERROR("CommClient", "Failed to read from BlackBoard");
             break;
         }
-        my_pos[bytes] = '\0';
-        
-        // Parse local coordinates (format: "x.x,y.y")
-        Coord local;
-        if (sscanf(my_pos, "%f,%f", &local.x, &local.y) != 2) {
-            LOG_ERROR("CommClient", "Invalid format from BlackBoard: '%s'", my_pos);
-            continue;
-        }
+        // If EAGAIN, just use last_local
         
         // Convert to virtual coordinates
-        Coord virtual = local_to_virtual(local, window_width, window_height);
+        Coord virtual = local_to_virtual(last_local, window_width, window_height);
         
         // Send position in virtual coordinates (format: "x.x y.y" - note space, not comma)
         snprintf(buffer, sizeof(buffer), "%.1f %.1f", virtual.x, virtual.y);
@@ -282,11 +325,16 @@ int main(int argc, char *argv[]) {
         
         if (loop_count % 20 == 0) {
             LOG_INFO("CommClient", "Sent my pos: local(%.1f,%.1f) -> virtual(%.1f,%.1f)",
-                   local.x, local.y, virtual.x, virtual.y);
+                   last_local.x, last_local.y, virtual.x, virtual.y);
         }
         
         // Wait for "position_ok"
-        if (read_line(sockfd, buffer, sizeof(buffer)) < 0 || strcmp(buffer, "position_ok") != 0) {
+        ret = read_line(sockfd, buffer, sizeof(buffer));
+        if (ret == -2) {
+            LOG_INFO("CommClient", "Termination during read, exiting.");
+            break;
+        }
+        if (ret < 0 || strcmp(buffer, "position_ok") != 0) {
             LOG_ERROR("CommClient", "Protocol error: expected 'position_ok', got '%s'", buffer);
             break;
         }
