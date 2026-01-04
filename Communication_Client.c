@@ -68,7 +68,15 @@ int read_line(int sockfd, char *buffer, int max_len) {
     char c;
     while (i < max_len - 1) {
         int n = read(sockfd, &c, 1);
-        if (n <= 0) return -1;
+        if (n < 0) {
+            if (errno == EAGAIN || errno == EWOULDBLOCK) {
+                // Timeout - check if we should exit
+                if (should_exit) return -2;  // Special code for termination
+                continue;  // Otherwise retry
+            }
+            return -1;  // Real error
+        }
+        if (n == 0) return -1;  // Connection closed
         if (c == '\n') break;
         buffer[i++] = c;
     }
@@ -141,6 +149,12 @@ int main(int argc, char *argv[]) {
     
     LOG_INFO("CommClient", "Connected to server!");
     
+    // Set socket timeout so we can check for termination signals
+    struct timeval tv;
+    tv.tv_sec = 1;  // 1 second timeout
+    tv.tv_usec = 0;
+    setsockopt(sockfd, SOL_SOCKET, SO_RCVTIMEO, (const char*)&tv, sizeof tv);
+    
     char buffer[256];
     int window_width, window_height;
     
@@ -187,7 +201,12 @@ int main(int argc, char *argv[]) {
         loop_count++;
         
         // a) Wait for "drone" or "q" command
-        if (read_line(sockfd, buffer, sizeof(buffer)) < 0) {
+        int ret = read_line(sockfd, buffer, sizeof(buffer));
+        if (ret == -2) {
+            LOG_INFO("CommClient", "Termination during read, exiting.");
+            break;
+        }
+        if (ret < 0) {
             LOG_ERROR("CommClient", "Read error");
             break;
         }
@@ -206,7 +225,12 @@ int main(int argc, char *argv[]) {
         }
         
         // Wait for server position in virtual coordinates (format: "x.x y.y")
-        if (read_line(sockfd, buffer, sizeof(buffer)) < 0) {
+        ret = read_line(sockfd, buffer, sizeof(buffer));
+        if (ret == -2) {
+            LOG_INFO("CommClient", "Termination during read, exiting.");
+            break;
+        }
+        if (ret < 0) {
             LOG_ERROR("CommClient", "Read error on server position");
             break;
         }
@@ -240,7 +264,12 @@ int main(int argc, char *argv[]) {
         }
         
         // b) Wait for "obst" command
-        if (read_line(sockfd, buffer, sizeof(buffer)) < 0) {
+        ret = read_line(sockfd, buffer, sizeof(buffer));
+        if (ret == -2) {
+            LOG_INFO("CommClient", "Termination during read, exiting.");
+            break;
+        }
+        if (ret < 0) {
             LOG_ERROR("CommClient", "Read error");
             break;
         }
@@ -286,7 +315,12 @@ int main(int argc, char *argv[]) {
         }
         
         // Wait for "position_ok"
-        if (read_line(sockfd, buffer, sizeof(buffer)) < 0 || strcmp(buffer, "position_ok") != 0) {
+        ret = read_line(sockfd, buffer, sizeof(buffer));
+        if (ret == -2) {
+            LOG_INFO("CommClient", "Termination during read, exiting.");
+            break;
+        }
+        if (ret < 0 || strcmp(buffer, "position_ok") != 0) {
             LOG_ERROR("CommClient", "Protocol error: expected 'position_ok', got '%s'", buffer);
             break;
         }
