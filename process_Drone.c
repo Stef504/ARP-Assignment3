@@ -322,6 +322,12 @@ int main(int argc, char *argv[])
             if (input_key == 'q') {
                 running = false;
             }
+            // Case: Reset - handled by BlackBoard, just reset our state
+            else if (input_key == 'a') {
+                boost_level = 0;
+                active_key = ' ';
+                // Position update comes from fdFromBB pipe
+            }
             // Case B: Brake (Stop Engine)
             else if (input_key == 'd') {
                 boost_level = 0;

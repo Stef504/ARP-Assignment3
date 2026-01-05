@@ -302,7 +302,6 @@ int main(int argc, char *argv[]) {
         int ch = wgetch(win); // poll window for keys (returns KEY_RESIZE)
         sIn[0]='\0';
         repulsion_sent = false;
-        char input_key= sIn[0];
 
         if (ch == KEY_RESIZE) {
             // Store old window dimensions for scaling
@@ -545,7 +544,9 @@ int main(int argc, char *argv[]) {
             }
         }                
 
-        //char input_key= sIn[0];
+        // Update input_key after reading from pipes
+        char input_key = sIn[0];
+        
         // Quit the game
         if (input_key=='q'){
             LOG_INFO("BlackBoard","Quit command received. Exiting main loop.\n");
@@ -576,6 +577,15 @@ int main(int argc, char *argv[]) {
 
             snprintf(sFromBB, sizeof(sFromBB), "%.0f,%.0f", x_curr, y_curr);     
             write(fdFromBB, sFromBB, strlen(sFromBB) + 1);
+            
+            // In networked mode, send updated position to communication process
+            if (mode != 1) {
+                char comm_msg[100];
+                snprintf(comm_msg, sizeof(comm_msg), "%.1f,%.1f", x_curr, y_curr);
+                write(fdComm_FromBB, comm_msg, strlen(comm_msg) + 1);
+                LOG_INFO("BlackBoard","Sent reset position to Communication process");
+            }
+            
             wrefresh(win);
             LOG_INFO("BlackBoard","Drone recentred to");
         }
