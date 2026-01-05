@@ -443,7 +443,7 @@ int main()
 
     else if (mode == 2){
     //.....Communication Server.....
-        pid_t Comm=fork();
+        Comm=fork();
 
         if (Comm < 0)
         {
