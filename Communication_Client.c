@@ -181,7 +181,7 @@ int main(int argc, char *argv[]) {
     
     // Set socket timeout so we can check for termination signals
     struct timeval tv;
-    tv.tv_sec = 1;  // 1 second timeout
+    tv.tv_sec = 5;  // 5 second timeout for internet reliability
     tv.tv_usec = 0;
     setsockopt(sockfd, SOL_SOCKET, SO_RCVTIMEO, (const char*)&tv, sizeof tv);
     

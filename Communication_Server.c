@@ -173,7 +173,7 @@ int main(int argc, char *argv[]) {
     char buffer[256];
     // --- SET TIMEOUT ---
     struct timeval tv;
-    tv.tv_sec = 1;  // 1 Second timeout
+    tv.tv_sec = 5;  // 5 Second timeout for internet reliability
     tv.tv_usec = 0;
     setsockopt(newsockfd, SOL_SOCKET, SO_RCVTIMEO, (const char*)&tv, sizeof tv);
  
