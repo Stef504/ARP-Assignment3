@@ -136,8 +136,8 @@ int main(int argc, char *argv[]) {
         FD_ZERO(&readfds);
         FD_SET(listen_sockfd, &readfds);
 
-        tv.tv_sec = 1; // Check for 'q' every 1 second
-        tv.tv_usec = 0;
+        tv.tv_sec = 0; // Check for 'q' every 1 second
+        tv.tv_usec = 500000; // 500 ms
 
         // Wait to see if a client is knocking
         int activity = select(listen_sockfd + 1, &readfds, NULL, NULL, &tv);
@@ -163,11 +163,13 @@ int main(int argc, char *argv[]) {
 
     if (newsockfd < 0) {
         LOG_ERRNO("CommServer", "ERROR on accept");
+        close(listen_sockfd); // Clean up
+        logger_close();
         return 1;
     }
 
     
-    LOG_INFO("CommServer", "Client connected!");
+    LOG_INFO("CommServer", "Client connected! Starting handshake...");
     char buffer[256];
     // --- SET TIMEOUT ---
     struct timeval tv;
@@ -223,22 +225,30 @@ int main(int argc, char *argv[]) {
             break;
         }
         
-        // Read MY drone position from BlackBoard (format: "x.x,y.y")
-        char my_pos[50];
-        ssize_t bytes = read(fdComm_FromBB, my_pos, sizeof(my_pos) - 1);
-        if (bytes > 0) {
-            my_pos[bytes] = '\0';
-            // Parse local coordinates (format: "x.x,y.y")
-            if (sscanf(my_pos, "%f,%f", &last_local.x, &last_local.y) == 2) {
-                has_position = true;
-            } else {
-                LOG_ERROR("CommServer", "Invalid format from BlackBoard: '%s'", my_pos);
+        fd_set pipe_fds;
+        FD_ZERO(&pipe_fds);
+        FD_SET(fdComm_FromBB, &pipe_fds);
+        struct timeval pipe_tv ={0 , 0}; // instant check (no wait)
+
+        if (select(fdComm_FromBB + 1, &pipe_fds, NULL, NULL, &pipe_tv) > 0) {
+            // Read MY drone position from BlackBoard (format: "x.x,y.y")
+            char my_pos[50];
+            ssize_t bytes = read(fdComm_FromBB, my_pos, sizeof(my_pos) - 1);
+            if (bytes > 0) {
+                my_pos[bytes] = '\0';
+                // Parse local coordinates (format: "x.x,y.y")
+                if (sscanf(my_pos, "%f,%f", &last_local.x, &last_local.y) == 2) {
+                    has_position = true;
+                } else {
+                    LOG_ERROR("CommServer", "Invalid format from BlackBoard: '%s'", my_pos);
+                }
+            } else if (bytes < 0 && errno != EAGAIN && errno != EWOULDBLOCK) {
+                LOG_ERROR("CommServer", "Failed to read from BlackBoard");
+                break;
             }
-        } else if (bytes < 0 && errno != EAGAIN && errno != EWOULDBLOCK) {
-            LOG_ERROR("CommServer", "Failed to read from BlackBoard");
-            break;
+            // If EAGAIN, just use last_local
         }
-        // If EAGAIN, just use last_local
+        
         
         // Convert to virtual coordinates
         Coord virtual = local_to_virtual(last_local, window_width, window_height);
@@ -323,18 +333,18 @@ int main(int argc, char *argv[]) {
 
     // --- READ (Will now fail automatically after 1s) ---
     // If read_line returns < 0, it means it timed out or failed
-    // TERMINATION
-    LOG_INFO("CommServer", "Sending quit signal");
-    write_line(newsockfd, "quit");
-    if (read_line(newsockfd, buffer, sizeof(buffer)) > 0) {
-        if (strcmp(buffer, "quit_ok") == 0) {
-            LOG_INFO("CommServer", "Clean shutdown acknowledged");
-        } else {
-            LOG_WARNING("CommServer", "Client replied with '%s' instead of 'quit_ok'", buffer);
-        }
-    } else {
-        // This runs if the client is dead/silent for > 1 second
-        LOG_WARNING("CommServer", "Client did not reply (Timeout). Closing anyway.");
+   // --- [4] CLEANUP HANG FIX ---
+    // If we have a socket, send 'quit'.
+    // CRITICAL: Do NOT block waiting for 'quit_ok' forever. 
+    // If client is dead, a blocking read here hangs the whole shutdown.
+    if (newsockfd >= 0) {
+        LOG_INFO("CommServer", "Sending quit signal to client...");
+        write_line(newsockfd, "quit");
+        
+        // We do NOT call read_line() here. 
+        // We just assume it worked and close the socket.
+        // This ensures we never hang during shutdown.
+        close(newsockfd);
     }
 
     close(newsockfd);

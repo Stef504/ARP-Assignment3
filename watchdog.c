@@ -189,7 +189,7 @@ int main(int argc, char *argv[]) {
     printf("Loading processes from process_log.log...\n");
     while (load_processes() == 0) {
         sleep(1);
-        printf("No processes to monitor!\n");
+        LOG_WARNING("Watchdog","No processes to monitor!\n");
     }
     
     LOG_INFO("Watchdog","Monitoring %d processes. Check logs: tail -f watchdog_log.log\n", process_count);

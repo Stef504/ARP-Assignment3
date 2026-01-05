@@ -138,15 +138,31 @@ int main(int argc, char *argv[]) {
     
     struct sockaddr_in serv_addr;
     bzero(&serv_addr, sizeof(serv_addr));
+    //internet test
     serv_addr.sin_family = AF_INET;
     bcopy(server->h_addr, &serv_addr.sin_addr.s_addr, server->h_length);
     serv_addr.sin_port = htons(portno);
     
-    if (connect(sockfd, (struct sockaddr *)&serv_addr, sizeof(serv_addr)) < 0) {
-        LOG_ERRNO("CommClient", "ERROR connecting");
-        return 1;
+   int retries = 0;
+    while (connect(sockfd, (struct sockaddr *)&serv_addr, sizeof(serv_addr)) < 0) {
+        // 1. Capture the specific error immediately (usually ECONNREFUSED)
+        int err_code = errno; 
+
+        if (retries > 5) {
+            // Restore errno so LOG_ERRNO prints the correct reason for the final failure
+            errno = err_code;
+            LOG_ERRNO("CommClient", "Give up: Failed to connect after 5 retries");
+            close(sockfd);
+            return 0; // Return 0 to exit cleanly, or 1 for error
+        }
+        
+        // 2. Print the ACTUAL error message (e.g., "Connection refused")
+        LOG_WARNING("CommClient", "Connection failed: %s. Retrying in 1s... (Attempt %d/5)", 
+                    strerror(err_code), retries + 1);
+        
+        sleep(1);
+        retries++;
     }
-    
     LOG_INFO("CommClient", "Connected to server!");
     
     // Set socket timeout so we can check for termination signals
