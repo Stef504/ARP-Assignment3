@@ -17,6 +17,7 @@
 #include <sys/types.h>   // Required for system data types
 #include <sys/socket.h>  // Required for socket(), bind(), listen()
 #include <netinet/in.h>  // Required for sockaddr_in, AF_INET, INADDR_ANY
+#include <signal.h>      // Required for signal handling
 
 // Global variables and parameters
 int window_width ;
@@ -63,9 +64,27 @@ void Parameter_File() {
     fclose(file);
 }
 
+// Global flag for signal handling
+volatile sig_atomic_t terminate_all = 0;
+
+// Global PIDs for signal handler access
+pid_t g_BB = 0, g_In = 0, g_Dr = 0, g_WD = 0, g_Ob = 0, g_Ta = 0, g_Comm = 0;
+pid_t g_input_pid = 0, g_blackboard_pid = 0;
+
+void handle_terminate(int signo) {
+    if (signo == SIGTERM) {
+        terminate_all = 1;
+    }
+}
 
 int main()
 {
+    // Setup SIGTERM handler to receive termination from children
+    struct sigaction sa;
+    memset(&sa, 0, sizeof(sa));
+    sa.sa_handler = handle_terminate;
+    sigaction(SIGTERM, &sa, NULL);
+    
     int mode;
     int sockfd = -1;  // For client/server socket
     int portno;
@@ -561,7 +580,43 @@ int main()
 
     //checking if the child status has changed
     // Corrected Master Loop
-    while ((wpid = wait(&status)) > 0) {
+    while ((wpid = wait(&status)) > 0 || terminate_all) {
+
+        // --- CHECK FOR TERMINATE SIGNAL (from client connection failure) ---
+        if (terminate_all) {
+            fprintf(stderr, "MASTER: Received termination signal. Shutting down all processes...\n");
+            
+            // Terminate everyone
+            if (WD > 0) kill(WD, SIGTERM);
+            if (input_pid > 0) kill(input_pid, SIGTERM);
+            if (blackboard_pid > 0) kill(blackboard_pid, SIGTERM);
+            if (Comm > 0) kill(Comm, SIGTERM); 
+            if (Ob > 0) kill(Ob, SIGTERM);
+            if (Ta > 0) kill(Ta, SIGTERM);
+            if (Dr > 0) kill(Dr, SIGTERM);
+            
+            usleep(500000);
+
+            if (BB > 0) kill(BB, SIGTERM);
+            if (In > 0) kill(In, SIGTERM);
+            
+            sleep(1);
+            
+            // Force kill
+            if (WD > 0) kill(WD, SIGKILL);
+            if (input_pid > 0) kill(input_pid, SIGKILL);
+            if (blackboard_pid > 0) kill(blackboard_pid, SIGKILL);
+            if (Comm > 0) kill(Comm, SIGKILL);
+            if (Ob > 0) kill(Ob, SIGKILL);
+            if (Ta > 0) kill(Ta, SIGKILL);
+            if (Dr > 0) kill(Dr, SIGKILL);
+
+            usleep(500000);
+            if (BB > 0) kill(BB, SIGKILL);
+            if (In > 0) kill(In, SIGKILL);
+            
+            break;
+        }
 
         // --- PRIORITY CHECK: DRONE DEATH ---
         // We check this FIRST, before caring about how it died.
