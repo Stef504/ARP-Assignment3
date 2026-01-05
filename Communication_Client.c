@@ -144,23 +144,37 @@ int main(int argc, char *argv[]) {
     serv_addr.sin_port = htons(portno);
     
    int retries = 0;
+    int max_retries = 5;  // 5 retries * 3 seconds = 15 seconds total
+    printf("Attempting to connect to server at %s:%d...\n", hostname, portno);
+    
     while (connect(sockfd, (struct sockaddr *)&serv_addr, sizeof(serv_addr)) < 0) {
         // 1. Capture the specific error immediately (usually ECONNREFUSED)
         int err_code = errno; 
 
-        if (retries > 5) {
+        if (retries >= max_retries) {
             // Restore errno so LOG_ERRNO prints the correct reason for the final failure
             errno = err_code;
-            LOG_ERRNO("CommClient", "Give up: Failed to connect after 5 retries");
+            LOG_ERRNO("CommClient", "Give up: Failed to connect after retries");
+            printf("\n*** Unable to connect to server at %s:%d ***\n", hostname, portno);
+            printf("*** Server may not be running. Shutting down... ***\n\n");
             close(sockfd);
-            return 0; // Return 0 to exit cleanly, or 1 for error
+            close(fdComm_FromBB);
+            close(fdComm_ToBB);
+            
+            // Signal parent process to terminate all children
+            kill(getppid(), SIGTERM);
+            
+            logger_close();
+            return 1;
         }
         
         // 2. Print the ACTUAL error message (e.g., "Connection refused")
-        LOG_WARNING("CommClient", "Connection failed: %s. Retrying in 1s... (Attempt %d/5)", 
-                    strerror(err_code), retries + 1);
+        LOG_WARNING("CommClient", "Connection failed: %s. Retrying in 3s... (Attempt %d/%d)", 
+                    strerror(err_code), retries + 1, max_retries);
+        printf("Connection failed: %s. Retrying in 3s... (Attempt %d/%d)\n",
+               strerror(err_code), retries + 1, max_retries);
         
-        sleep(1);
+        sleep(3);
         retries++;
     }
     LOG_INFO("CommClient", "Connected to server!");
