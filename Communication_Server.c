@@ -180,8 +180,9 @@ int main(int argc, char *argv[]) {
         
     // PROTOCOL: Initial handshake
     // 1. Send "ok", wait for "ook"
-    write_line(newsockfd, "ServerConnected");
-    if (read_line(newsockfd, buffer, sizeof(buffer)) < 0 || strcmp(buffer, "ClientConnected") != 0) {
+    //had to change ClientConnected to ook to match client changes
+    write_line(newsockfd, "ok");
+    if (read_line(newsockfd, buffer, sizeof(buffer)) < 0 || strcmp(buffer, "ook") != 0) {
         LOG_ERROR("CommServer", "Protocol error: expected 'ClientConnected', got '%s'", buffer);
         close(newsockfd);
         return 1;
@@ -189,7 +190,8 @@ int main(int argc, char *argv[]) {
     LOG_INFO("CommServer", "Received connection acknowledgment from client");
     
     // 2. Send "size w h", wait for "sok"
-    snprintf(buffer, sizeof(buffer), "size %d %d", window_width, window_height);
+    //instead of sending "size %d %d", sending "%d,%d" to match client changes
+    snprintf(buffer, sizeof(buffer), "%d,%d", window_width, window_height);
     write_line(newsockfd, buffer);
     LOG_INFO("CommServer", "Sent: %s", buffer);
     
@@ -267,19 +269,20 @@ int main(int argc, char *argv[]) {
         
 
         // Wait for "drone_ok"
-        if (read_line(newsockfd, buffer, sizeof(buffer)) < 0 || strcmp(buffer, "drone_ok") != 0) {
+        //wait for dok because of client changes
+        if (read_line(newsockfd, buffer, sizeof(buffer)) < 0 || strcmp(buffer, "dok") != 0) {
             // Check for termination signal from master
             if (should_exit) {
                 LOG_INFO("COmmServer", "Termination signal received. Exiting main loop.");
                 break;
             }
             
-            LOG_ERROR("CommServer", "Protocol error: expected 'drone_ok', got '%s'", buffer);
+            LOG_ERROR("CommServer", "Protocol error: expected 'dok', got '%s'", buffer);
             break;
         }
         
         // b) Send "obstacle_ok" command
-        if (write_line(newsockfd, "obstacle_ok") < 0) {
+        if (write_line(newsockfd, "obst") < 0) {
             LOG_ERROR("CommServer", "Write error on 'obstacle_ok'");
             break;
         }
@@ -302,7 +305,8 @@ int main(int argc, char *argv[]) {
         if (sscanf(buffer, "%f %f", &client_virtual.x, &client_virtual.y) != 2) {
             LOG_ERROR("CommServer", "Invalid client position format: '%s'", buffer);
             // Send pok anyway to keep protocol in sync
-            write_line(newsockfd, "position_ok");
+            //was position_ok now pok because of client changes
+            write_line(newsockfd, "pok");
             continue;
         }
         
@@ -310,7 +314,8 @@ int main(int argc, char *argv[]) {
         Coord client_local = virtual_to_local(client_virtual, window_width, window_height);
         
         // Send "position_ok" acknowledgement
-        if (write_line(newsockfd, "position_ok") < 0) {
+        //was position_ok now pok because of client changes
+        if (write_line(newsockfd, "pok") < 0) {
             LOG_ERROR("CommServer", "Write error on 'position_ok'");
             break;
         }
@@ -326,7 +331,7 @@ int main(int argc, char *argv[]) {
         }
         
         // Small delay
-        usleep(50000); // 50ms
+        usleep(10000); // 10ms
         
        
     }

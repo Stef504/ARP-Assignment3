@@ -1,6 +1,6 @@
-Process: Master | PID: 16444
-Process: Drone | PID: 16465
-Process: Watchdog | PID: 16466
-Process: CommServer | PID: 16467
-Process: Input | PID: 16472
-Process: BlackBoard | PID: 16474
+Process: Master | PID: 6086
+Process: Drone | PID: 6132
+Process: Watchdog | PID: 6133
+Process: CommClient | PID: 6134
+Process: Input | PID: 6139
+Process: BlackBoard | PID: 6141

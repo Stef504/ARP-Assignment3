@@ -432,7 +432,7 @@ int main(int argc, char *argv[]) {
                                 }
                             }
                             
-                            LOG_INFO("BlackBoard","Sent drone coordinates to Communication Client");
+                            //LOG_INFO("BlackBoard","Sent drone coordinates to Communication Client");
                         } 
                     }   
                 }

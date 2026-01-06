@@ -190,7 +190,7 @@ int main(int argc, char *argv[]) {
     
     // PROTOCOL: Initial handshake
     // 1. Wait for "ok", send "ook"
-    int ret;
+    int ret; 
     while ((ret = read_line(sockfd, buffer, sizeof(buffer))) == -2) {
         // Keep waiting but check for termination
         if (should_exit) {
@@ -199,13 +199,14 @@ int main(int argc, char *argv[]) {
             return 0;
         }
     }
-    if (ret < 0 || strcmp(buffer, "ServerConnected") != 0) {
+    if (ret < 0 || strcmp(buffer, "ok") != 0) {
         LOG_ERROR("CommClient", "Protocol error: expected 'ServerConnected', got '%s'", buffer);
         close(sockfd);
         return 1;
     }
     LOG_INFO("CommClient", "Server connected");
-    write_line(sockfd, "ClientConnected");
+    write_line(sockfd, "ook");
+    //write_line(sockfd, "ClientConnected");
     LOG_INFO("CommClient", "Sent connection acknowledgment to server");
     
     // 2. Wait for "size w h", send "sok"
@@ -222,7 +223,8 @@ int main(int argc, char *argv[]) {
         return 1;
     }
     
-    if (sscanf(buffer, "size %d %d", &window_width, &window_height) != 2) {
+    //may work with %d %d or %d,%d depending on how server sends it
+    if (sscanf(buffer, "%d,%d", &window_width, &window_height) != 2) {
         LOG_ERROR("CommClient", "Protocol error: invalid size format '%s'", buffer);
         close(sockfd);
         return 1;
@@ -289,7 +291,7 @@ int main(int argc, char *argv[]) {
         if (sscanf(buffer, "%f %f", &server_virtual.x, &server_virtual.y) != 2) {
             LOG_ERROR("CommClient", "Invalid server position format: '%s'", buffer);
             // Send drone_ok anyway to keep protocol in sync
-            write_line(sockfd, "drone_ok");
+            write_line(sockfd, "dok");
             continue;
         }
         
@@ -297,7 +299,8 @@ int main(int argc, char *argv[]) {
         Coord server_local = virtual_to_local(server_virtual, window_width, window_height);
         
         // Send "drone_ok" acknowledgement
-        if (write_line(sockfd, "drone_ok") < 0) {
+        //send dok because of server changes
+        if (write_line(sockfd, "dok") < 0) {
             LOG_ERROR("CommClient", "Write error on 'drone_ok'");
             break;
         }
@@ -312,7 +315,7 @@ int main(int argc, char *argv[]) {
                    server_virtual.x, server_virtual.y, server_local.x, server_local.y);
         }
         
-        // b) Wait for "obst" command
+        // b) Wait for "obstacle_ok" command
         ret = read_line(sockfd, buffer, sizeof(buffer));
         if (ret == -2) {
             LOG_INFO("CommClient", "Termination during read, exiting.");
@@ -323,7 +326,8 @@ int main(int argc, char *argv[]) {
             break;
         }
         
-        if (strcmp(buffer, "obstacle_ok") != 0) {
+        //was obstacle_ok
+        if (strcmp(buffer, "obst") != 0) {
             LOG_ERROR("CommClient", "Protocol error: expected 'obstacle_ok', got '%s'", buffer);
             break;
         }
@@ -358,19 +362,20 @@ int main(int argc, char *argv[]) {
                    last_local.x, last_local.y, virtual.x, virtual.y);
         }
         
-        // Wait for "position_ok"
+        // Wait for "position_ok" some people write pok
+        //wait for pok because of server changes
         ret = read_line(sockfd, buffer, sizeof(buffer));
         if (ret == -2) {
             LOG_INFO("CommClient", "Termination during read, exiting.");
             break;
         }
-        if (ret < 0 || strcmp(buffer, "position_ok") != 0) {
-            LOG_ERROR("CommClient", "Protocol error: expected 'position_ok', got '%s'", buffer);
+        if (ret < 0 || strcmp(buffer, "pok") != 0) {
+            LOG_ERROR("CommClient", "Protocol error: expected 'pok', got '%s'", buffer);
             break;
         }
         
         // Small delay
-        usleep(50000); // 50ms
+        usleep(1000); // 10ms
     }
     
     LOG_INFO("CommClient", "Connection closed");
