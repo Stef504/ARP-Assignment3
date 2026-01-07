@@ -393,14 +393,14 @@ int main(int argc, char *argv[])
 
         total_fx= Fx;
         total_fy= Fy;
-        float MAX_REPULSION = 10.0;
+        float MAX_REPULSION = 40.0; //increased for drones running towards each other
 
         if (repul){
 
             float dist_f = distance;
 
             //this is the bridge between physics and pixels 
-            float scale_factor = 200;
+            float scale_factor = 400; //increased for drones running towards each other
 
             float term_rph = (1.0 / rph_intial);
             float norm_dx = dx/dist_f;

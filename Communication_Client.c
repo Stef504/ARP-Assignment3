@@ -10,6 +10,7 @@
 #include <math.h>
 #include <signal.h>
 #include <sys/file.h>
+#include <netinet/tcp.h>
 #include "logger.h"
 #include "logger_custom.h"
 
@@ -210,6 +211,7 @@ int main(int argc, char *argv[]) {
     LOG_INFO("CommClient", "Sent connection acknowledgment to server");
     
     // 2. Wait for "size w h", send "sok"
+    //now waits for w,h separated by comma because of server changes
     while ((ret = read_line(sockfd, buffer, sizeof(buffer))) == -2) {
         if (should_exit) {
             LOG_INFO("CommClient", "Termination during handshake, exiting.");
@@ -231,7 +233,8 @@ int main(int argc, char *argv[]) {
     }
     LOG_INFO("CommClient", "Received window size: %dx%d", window_width, window_height);
     
-    write_line(sockfd, "w_h");
+    //send sok because of server changes
+    write_line(sockfd, "sok");
     LOG_INFO("CommClient", "Sent window size acknowledgment to server");
     
     LOG_INFO("CommClient", "Handshake complete. Entering main loop...");
@@ -265,8 +268,10 @@ int main(int argc, char *argv[]) {
         // Check for quit signal
         if (strcmp(buffer, "quit") == 0) {
             LOG_INFO("CommClient", "Received quit signal");
-            write_line(sockfd, "quit_ok");
+            //write_line(sockfd, "quit_ok");
             running = false;
+            // Tell the Master Process to die
+            kill(getppid(), SIGTERM);
             break;
         }
         
@@ -315,6 +320,15 @@ int main(int argc, char *argv[]) {
                    server_virtual.x, server_virtual.y, server_local.x, server_local.y);
         }
         
+        // Check for quit signal
+        if (strcmp(buffer, "quit") == 0) {
+            LOG_INFO("CommClient", "Received quit signal");
+           // write_line(sockfd, "quit_ok");
+            running = false;
+            // Tell the Master Process to die
+            kill(getppid(), SIGTERM);
+            break;
+        }
         // b) Wait for "obstacle_ok" command
         ret = read_line(sockfd, buffer, sizeof(buffer));
         if (ret == -2) {
@@ -326,6 +340,15 @@ int main(int argc, char *argv[]) {
             break;
         }
         
+        // Check for quit signal
+        if (strcmp(buffer, "quit") == 0) {
+            LOG_INFO("CommClient", "Received quit signal");
+           // write_line(sockfd, "quit_ok");
+            running = false;
+            // Tell the Master Process to die
+            kill(getppid(), SIGTERM);
+            break;
+        }
         //was obstacle_ok
         if (strcmp(buffer, "obst") != 0) {
             LOG_ERROR("CommClient", "Protocol error: expected 'obstacle_ok', got '%s'", buffer);
@@ -362,6 +385,15 @@ int main(int argc, char *argv[]) {
                    last_local.x, last_local.y, virtual.x, virtual.y);
         }
         
+        // Check for quit signal
+        if (strcmp(buffer, "quit") == 0) {
+            LOG_INFO("CommClient", "Received quit signal");
+            //write_line(sockfd, "quit_ok");
+            running = false;
+            // Tell the Master Process to die
+            kill(getppid(), SIGTERM);
+            break;
+        }
         // Wait for "position_ok" some people write pok
         //wait for pok because of server changes
         ret = read_line(sockfd, buffer, sizeof(buffer));

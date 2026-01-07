@@ -100,6 +100,7 @@ int main()
 
         if (mode < 1 || mode > 3) {
             printf("Invalid choice. Exiting.\n");
+            return 1;
         }
    
     

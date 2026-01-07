@@ -11,8 +11,10 @@
 #include <math.h>
 #include <signal.h>
 #include <sys/file.h>
+#include <netinet/tcp.h>
 #include "logger.h"
 #include "logger_custom.h"
+
 
 #ifndef M_PI
 #define M_PI 3.14159265358979323846
@@ -137,7 +139,7 @@ int main(int argc, char *argv[]) {
         FD_SET(listen_sockfd, &readfds);
 
         tv.tv_sec = 0; // Check for 'q' every 1 second
-        tv.tv_usec = 500000; // 500 ms
+        tv.tv_usec = 100000; // 100 ms
 
         // Wait to see if a client is knocking
         int activity = select(listen_sockfd + 1, &readfds, NULL, NULL, &tv);
@@ -195,8 +197,8 @@ int main(int argc, char *argv[]) {
     write_line(newsockfd, buffer);
     LOG_INFO("CommServer", "Sent: %s", buffer);
     
-    if (read_line(newsockfd, buffer, sizeof(buffer)) < 0 || strcmp(buffer, "w_h") != 0) {
-        LOG_ERROR("CommServer", "Protocol error: expected 'w_h', got '%s'", buffer);
+    if (read_line(newsockfd, buffer, sizeof(buffer)) < 0 || strcmp(buffer, "sok") != 0) {
+        LOG_ERROR("CommServer", "Protocol error: expected 'sok', got '%s'", buffer);
         close(newsockfd);
         return 1;
     }
