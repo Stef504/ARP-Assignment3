@@ -13,21 +13,21 @@ The networked communication implements a **virtual coordinate system** with sock
 
 ## How does it work?
 
-- Two assignment 2s are connected in a socket TCP/IP communication network
-- Upon startup, the application asks to input a number in order to choose the mode to operate in, 1 for standalone, 2 for server and 3 for client.
-- If running server mode, the application will prompt the user to insert the port number; if running client mode, the server's IP address will also be asked.
+- Two assignments are connected in a socket TCP/IP communication network
+- Upon startup, the application asks the user to input a number in order to choose the mode to operation in, 1 for standalone, 2 for server and 3 for client.
+- If running server mode, the application will prompt the user to insert the port number; if running client mode, the server's IP address will also be asked as well as a port number.
 - Both networked modes will turn off the watchdog and the obstacle and target generators, then perform a TCP handshake and connect
 
 ### Server mode 
-- Communicates to the client its windows'sizes, which the client reproduces through a virtual coordinate system; this also proves useful in cases where server and client have different window sizes in their parameter files
-- Sends its drone's position to the client. Drone dynamics remain unchanged in both networked modes
-- Receives the position of only one obstacle, with the already seen law of repulsion
-- Close connection on termination
+- Communicates to the client its windows'sizes, which the client reproduces through a virtual coordinate system; this proves useful in cases where server and client have different window sizes in their parameter files.
+- Sends its drone's position to the client. Drone dynamics remain unchanged in both networked modes.
+- Receives the clients drone position as an obstacle, with the already seen law of repulsion.
+- Close connection on termination.
 
 ### Client mode
-- Receives window sizes and drone position from the server and displays them
-- Moves its drone and sends its position to the server. This drone will be the only obstacle interpreted by the server
-- Terminates when receiving the connection closure
+- Receives window sizes and drone position from the server and displays them.
+- Moves its drone and sends its position to the server. This drone will be the only obstacle interpreted by the server.
+- Terminates when receiving the connection closure.
 
 ---
 
@@ -39,7 +39,7 @@ This process handles the server-side network communication using TCP sockets.
 
 **Responsibilities:**
 - Accepts incoming client connections on the listening socket
-- Implements a handshake protocol with acknowledgments (`ok`/`ook`, `size`/`sok`)
+- Implements a handshake protocol with acknowledgments (`ok`/`ook`, `w,h`/`sok`)
 - Reads local drone position from BlackBoard via `fdComm_FromBB`
 - Converts local coordinates to **virtual coordinates** using transformation formulas
 - Sends virtual drone position to the client
@@ -65,7 +65,7 @@ y = -(x₁ - x₀)·sin(α) + (y₁ - y₀)·cos(α)
 **Safety Features:**
 - Socket timeout (5 seconds) for internet reliability
 - Graceful handling of `SIGTERM` for clean shutdown
-- Non-blocking select loop for accept to allow termination during waiting
+- Non-blocking select loop to allow for termination during waiting
 - Sends `quit` signal to client before closing
 
 ---
@@ -138,12 +138,16 @@ Communication Client → fdComm_ToBB → BlackBoard (receives SERVER's position 
 
 **Standalone Mode (Single Drone):**
 ```bash
+make clean
+make
 ./main
 # Select option 1
 ```
 
 **Server Mode:**
 ```bash
+make clean
+make
 ./main
 # Select option 2
 # Enter port number (e.g., 5000)
@@ -151,6 +155,8 @@ Communication Client → fdComm_ToBB → BlackBoard (receives SERVER's position 
 
 **Client Mode:**
 ```bash
+make clean
+make
 ./main
 # Select option 3
 # Enter server hostname (e.g., localhost or IP address)
@@ -161,14 +167,14 @@ Communication Client → fdComm_ToBB → BlackBoard (receives SERVER's position 
 To run server and client on different machines:
 
 1. **On Server Machine:**
-   ```bash
+```bash
    ./main
    # Select option 2
    # Enter port (e.g., 5000)
-   ```
+```
 
 2. **On Client Machine:**
-   ```bash
+```bash
    ./main
    # Select option 3
    # Enter server's IP address
@@ -196,6 +202,10 @@ To run server and client on different machines:
 > **Firewall:** If connecting across machines, ensure the port is not blocked by firewall.
 
 > **Wait for Repulsion:** Please wait for the drone to stop moving after a repulsion force is detected before pressing another key.
+
+>**Press one key at a time:** While running the game do not hold down the desired key, one press is sufficient, all special key features are enabled
+
+>**WSL and Linux Network Configuration:** While being the server on WSL you might experience issues when the client tries to connect as windows may block the Linux ip address. If so it is better to test on two Linux Machines.
 
 ---
 
