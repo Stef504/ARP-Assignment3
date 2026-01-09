@@ -33,3 +33,9 @@ BlackBoard (local coords) → Communication Server → [converts to virtual] →
 
 CLIENT SIDE:
 Network → [converts to virtual] → Communication Client → BlackBoard (local coords)
+
+Alpha Values:
+0: Standard orientation.
+pi/2 (90°): Rotates the world "sideways" (Portrait <-> Landscape).
+pi (180°): Flips the world upside down.
+-pi/2 (-90°): Rotates the other way.

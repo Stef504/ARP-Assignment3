@@ -193,7 +193,7 @@ int main(int argc, char *argv[]) {
     
     // 2. Send "size w h", wait for "sok"
     //instead of sending "size %d %d", sending "%d,%d" to match client changes
-    snprintf(buffer, sizeof(buffer), "%d,%d", window_width, window_height);
+    snprintf(buffer, sizeof(buffer), "size %d,%d", window_width, window_height);
     write_line(newsockfd, buffer);
     LOG_INFO("CommServer", "Sent: %s", buffer);
     
@@ -241,7 +241,7 @@ int main(int argc, char *argv[]) {
             if (bytes > 0) {
                 my_pos[bytes] = '\0';
                 // Parse local coordinates (format: "x.x,y.y")
-                if (sscanf(my_pos, "%f,%f", &last_local.x, &last_local.y) == 2) {
+                if (sscanf(my_pos, "%f, %f", &last_local.x, &last_local.y) == 2) {
                     has_position = true;
                 } else {
                     LOG_ERROR("CommServer", "Invalid format from BlackBoard: '%s'", my_pos);
@@ -258,7 +258,7 @@ int main(int argc, char *argv[]) {
         Coord virtual = local_to_virtual(last_local, window_width, window_height);
         
         // Send position in virtual coordinates (format: "x.x y.y" - note space, not comma)
-        snprintf(buffer, sizeof(buffer), "%.1f %.1f", virtual.x, virtual.y);
+        snprintf(buffer, sizeof(buffer), "%.1f, %.1f", virtual.x, virtual.y);
         if (write_line(newsockfd, buffer) < 0) {
             LOG_ERROR("CommServer", "Write error on position");
             break;
@@ -304,7 +304,7 @@ int main(int argc, char *argv[]) {
         
         // Parse virtual coordinates
         Coord client_virtual;
-        if (sscanf(buffer, "%f %f", &client_virtual.x, &client_virtual.y) != 2) {
+        if (sscanf(buffer, "%f, %f", &client_virtual.x, &client_virtual.y) != 2) {
             LOG_ERROR("CommServer", "Invalid client position format: '%s'", buffer);
             // Send pok anyway to keep protocol in sync
             //was position_ok now pok because of client changes
@@ -338,15 +338,14 @@ int main(int argc, char *argv[]) {
        
     }
 
-    // --- READ (Will now fail automatically after 1s) ---
-    // If read_line returns < 0, it means it timed out or failed
    // --- [4] CLEANUP HANG FIX ---
-    // If we have a socket, send 'quit'.
-    // CRITICAL: Do NOT block waiting for 'quit_ok' forever. 
+    // If we have a socket, send 'q'.
+    // CRITICAL: Do NOT block waiting for 'qok' forever. 
     // If client is dead, a blocking read here hangs the whole shutdown.
+    //therefore removed the read_line for qok
     if (newsockfd >= 0) {
         LOG_INFO("CommServer", "Sending quit signal to client...");
-        write_line(newsockfd, "quit");
+        write_line(newsockfd, "q");
         
         // We do NOT call read_line() here. 
         // We just assume it worked and close the socket.

@@ -226,7 +226,7 @@ int main(int argc, char *argv[]) {
     }
     
     //may work with %d %d or %d,%d depending on how server sends it
-    if (sscanf(buffer, "%d,%d", &window_width, &window_height) != 2) {
+    if (sscanf(buffer, "size %d,%d", &window_width, &window_height) != 2) {
         LOG_ERROR("CommClient", "Protocol error: invalid size format '%s'", buffer);
         close(sockfd);
         return 1;
@@ -266,7 +266,7 @@ int main(int argc, char *argv[]) {
         }
         
         // Check for quit signal
-        if (strcmp(buffer, "quit") == 0) {
+        if (strcmp(buffer, "q") == 0) {
             LOG_INFO("CommClient", "Received quit signal");
             //write_line(sockfd, "quit_ok");
             running = false;
@@ -293,7 +293,7 @@ int main(int argc, char *argv[]) {
         
         // Parse virtual coordinates
         Coord server_virtual;
-        if (sscanf(buffer, "%f %f", &server_virtual.x, &server_virtual.y) != 2) {
+        if (sscanf(buffer, "%f, %f", &server_virtual.x, &server_virtual.y) != 2) {
             LOG_ERROR("CommClient", "Invalid server position format: '%s'", buffer);
             // Send drone_ok anyway to keep protocol in sync
             write_line(sockfd, "dok");
@@ -321,7 +321,7 @@ int main(int argc, char *argv[]) {
         }
         
         // Check for quit signal
-        if (strcmp(buffer, "quit") == 0) {
+        if (strcmp(buffer, "q") == 0) {
             LOG_INFO("CommClient", "Received quit signal");
            // write_line(sockfd, "quit_ok");
             running = false;
@@ -341,7 +341,7 @@ int main(int argc, char *argv[]) {
         }
         
         // Check for quit signal
-        if (strcmp(buffer, "quit") == 0) {
+        if (strcmp(buffer, "q") == 0) {
             LOG_INFO("CommClient", "Received quit signal");
            // write_line(sockfd, "quit_ok");
             running = false;
@@ -374,7 +374,7 @@ int main(int argc, char *argv[]) {
         Coord virtual = local_to_virtual(last_local, window_width, window_height);
         
         // Send position in virtual coordinates (format: "x.x y.y" - note space, not comma)
-        snprintf(buffer, sizeof(buffer), "%.1f %.1f", virtual.x, virtual.y);
+        snprintf(buffer, sizeof(buffer), "%.1f, %.1f", virtual.x, virtual.y);
         if (write_line(sockfd, buffer) < 0) {
             LOG_ERROR("CommClient", "Write error on position");
             break;
@@ -386,7 +386,7 @@ int main(int argc, char *argv[]) {
         }
         
         // Check for quit signal
-        if (strcmp(buffer, "quit") == 0) {
+        if (strcmp(buffer, "q") == 0) {
             LOG_INFO("CommClient", "Received quit signal");
             //write_line(sockfd, "quit_ok");
             running = false;

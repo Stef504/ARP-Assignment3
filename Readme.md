@@ -65,8 +65,9 @@ y = -(x₁ - x₀)·sin(α) + (y₁ - y₀)·cos(α)
 **Safety Features:**
 - Socket timeout (5 seconds) for internet reliability
 - Graceful handling of `SIGTERM` for clean shutdown
-- Non-blocking select loop to allow for termination during waiting
-- Sends `quit` signal to client before closing
+- Non-blocking select loop to allow for termination during waiting for client
+- Sends `q` signal to client before closing
+- Does not wait for `qok` as to allows the server to quit while waiting for client and in cases where the client dies unexpectedly
 
 ---
 
@@ -88,7 +89,7 @@ This process handles the client-side network communication using TCP sockets.
 **Connection Handling:**
 - Automatic retry on connection failure
 - If connection cannot be established after max retries, signals parent process (`SIGTERM`) to initiate system shutdown
-- Handles `quit` signal from server for graceful termination
+- Handles `q` signal from server for graceful termination
 
 **Safety Features:**
 - Socket timeout for read operations
